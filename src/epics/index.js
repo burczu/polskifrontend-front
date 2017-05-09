@@ -1,11 +1,12 @@
 import { combineEpics } from 'redux-observable';
 import { getBlogListEpic, getArticleListForBlog, switchToListViewEpic } from './home';
 import { loginEpic } from './login';
-import { getAdminBlogListEpic, deleteBlogEpic, addBlogEpic, blogRefreshEpic } from './adminBlogs';
+import { getAdminBlogListEpic, deleteBlogEpic, addBlogEpic, blogRefreshEpic, slugRefreshEpic } from './adminBlogs';
 import { getAdminNewsListEpic, addNewsEpic, deleteAdminNewsEpic } from './adminNews';
 import { sendBlogRequestEpic } from './submit';
 import { sendFeedbackEpic } from './feedback';
 import { getNewsPageEpic } from './news';
+import { articlesGetArticleEpic } from './articles';
 
 const rootEpic = combineEpics(
   getBlogListEpic,
@@ -16,12 +17,14 @@ const rootEpic = combineEpics(
   deleteBlogEpic,
   addBlogEpic,
   blogRefreshEpic,
+  slugRefreshEpic,
   sendBlogRequestEpic,
   sendFeedbackEpic,
   getAdminNewsListEpic,
   addNewsEpic,
   deleteAdminNewsEpic,
-  getNewsPageEpic
+  getNewsPageEpic,
+  articlesGetArticleEpic
 );
 
 export default rootEpic;

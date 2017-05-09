@@ -31,7 +31,10 @@ export const initialState = {
   addBlogErrorMessage: '',
 
   refreshBlogLoading: false,
-  refreshBlogError: false
+  refreshBlogError: false,
+
+  refreshSlugLoading: false,
+  refreshSlugError: false
 };
 
 export default function adminBlogsReducer(state = initialState, action) {
@@ -96,7 +99,14 @@ export default function adminBlogsReducer(state = initialState, action) {
       return { ...state, refreshBlogLoading: false, refreshBlogError: false };
     case constants.ADMIN_BLOG_REFRESH_ERROR:
       return { ...state, refreshBlogLoading: false, refreshBlogError: true };
-  }
 
-  return state;
+    case constants.ADMIN_SLUG_REFRESH:
+      return { ...state, refreshSlugLoading: true, refreshSlugError: false };
+    case constants.ADMIN_SLUG_REFRESH_SUCCESS:
+      return { ...state, refreshSlugLoading: false, refreshSlugError: false };
+    case constants.ADMIN_SLUG_REFRESH_ERROR:
+      return { ...state, refreshSlugLoading: false, refreshSlugError: true };
+    default:
+      return { ...state };
+  }
 }

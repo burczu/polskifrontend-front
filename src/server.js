@@ -27,9 +27,11 @@ import getHomeInitialState from './store/serverSideInitializers/homeInitializer'
 import getAdminInitialState from './store/serverSideInitializers/adminBlogsInitializer';
 import getAdminNewsInitialState from './store/serverSideInitializers/adminNewsInitializer';
 import getNewsInitialState from './store/serverSideInitializers/newsInitializer';
-import { port, auth } from './config';
-import 'rxjs';
+import { initialState as articlesState } from './reducers/articles';
+import { port, auth, apiUrl } from './config';
 import cookie from 'react-cookie';
+import fetch from './core/fetch';
+import { Helmet } from 'react-helmet';
 
 const app = express();
 
@@ -54,7 +56,41 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// redirect to https
+// sitemap handling
+app.get('/sitemap.xml', async (req, res) => {
+  const url = `${apiUrl}/misc/sitemap`;
+  const getData = async () => {
+    const response = await fetch(url, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' });
+    return await response.json();
+  };
+
+  const sitemap = await getData();
+
+  if (sitemap.success === false) {
+    return res.status(503).end();
+  }
+
+  res.header('Content-Type', 'application/xml');
+  res.send(sitemap.xml);
+});
+
+// feed handling
+app.get('/feed',  async (req, res) => {
+  const url = `${apiUrl}/misc/feed`;
+  const getData = async () => {
+    const response = await fetch(url, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' });
+    return await response.json();
+  };
+
+  const rssData = await getData();
+
+  if (rssData.success === false) {
+    return res.status(503).end();
+  }
+
+  res.header('Content-Type', 'application/rss+xml');
+  res.send(rssData.feed);
+});
 
 //
 // Register server-side rendering middleware
@@ -101,6 +137,7 @@ app.get('*', async (req, res, next) => {
       homeState,
       adminState,
       newsState,
+      articlesState,
       adminBlogsState: blogsState.adminBlogsState,
       adminNewsState: adminNewsState.adminNewsState
     }, {
@@ -148,6 +185,8 @@ app.get('*', async (req, res, next) => {
     if (assets[route.chunk]) {
       data.scripts.push(assets[route.chunk].js);
     }
+
+    data.helmet = Helmet.renderStatic();
 
     cookie.plugToRequest(req, res);
     const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);

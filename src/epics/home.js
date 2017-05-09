@@ -1,11 +1,14 @@
 import * as constants from '../constants';
 import { ajax } from 'rxjs/observable/dom/ajax';
 import { apiUrl } from '../config';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 export const getBlogListEpic = action$ => {
   return action$.ofType(constants.HOME_GET_BLOG_LIST)
     .mergeMap(action =>
-      ajax.get(`${apiUrl}/blogs/${action.payload}`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' })
+      ajax.get(`${apiUrl}/blogs/all/${action.payload}`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' })
         .flatMap(responseData => {
           const blogs = responseData.response.blogs;
           if (responseData.response.success === false) {
@@ -42,7 +45,7 @@ export const getBlogListEpic = action$ => {
 export const getArticleListForBlog = action$ => {
   return action$.ofType(constants.HOME_GET_ARTICLES_FOR_BLOG)
     .mergeMap(action =>
-      ajax.get(`${apiUrl}/articles/${action.payload}`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' })
+      ajax.get(`${apiUrl}/blogs/${action.payload}/articles`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' })
         .map(responseData => {
           if (responseData.response.success === false) {
             return {

@@ -2,6 +2,9 @@ import * as constants from '../constants';
 import { ajax } from 'rxjs/observable/dom/ajax';
 import { apiUrl } from '../config';
 import * as loginHelper from '../core/helpers/loginHelper';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 export const getAdminBlogListEpic = action$ => {
   return action$.ofType(constants.ADMIN_GET_BLOG_LIST)
@@ -127,6 +130,29 @@ export const blogRefreshEpic = action$ => {
         .catch(error => ({
           type: constants.ADMIN_BLOG_REFRESH_ERROR,
           payload: error
+        }))
+    });
+};
+
+export const slugRefreshEpic = action$ => {
+  return action$.ofType(constants.ADMIN_SLUG_REFRESH)
+    .mergeMap(action => {
+      const headers = {
+        'authorization': 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==',
+        'x-access-token': loginHelper.getLoginToken()
+      };
+
+      return ajax({
+          url: `${apiUrl}/admin/articles/refresh`,
+          headers: headers,
+          method: 'POST',
+          responseType: 'json'
+        })
+        .map(responseData => ({
+          type: constants.ADMIN_SLUG_REFRESH_SUCCESS
+        }))
+        .catch(error => ({
+          type: constants.ADMIN_SLUG_REFRESH_ERROR
         }))
     });
 };

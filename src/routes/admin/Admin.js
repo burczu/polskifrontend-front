@@ -9,6 +9,7 @@ import AddBlog from './parts/AddBlog';
 import BlogList from './parts/BlogList';
 import Message from '../../components/Indicators/Message';
 import Confirm from '../../components/Modals/Confirm';
+import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 class Admin extends React.Component {
   componentDidMount() {
@@ -93,6 +94,12 @@ class Admin extends React.Component {
     refreshBlog(id);
   }
 
+  onSlugRefreshClick(event) {
+    event.preventDefault();
+    const { actions: { refreshSlug } } = this.props;
+    refreshSlug();
+  }
+
   render() {
     const { adminBlogsState: {
       blogList,
@@ -111,8 +118,10 @@ class Admin extends React.Component {
       addBlogError,
       addBlogErrorMessage,
       deleteBlogRequested,
-      refreshBlogLoading
+      refreshBlogLoading,
+      refreshSlugLoading
     } } = this.props;
+    const { context, description, title } = this.props;
     let errorMessage = blogListError ? 'Błąd pobierania blogów - spróbuj odświezyć stronę' : '';
     const shouldCleanUp = newBlogName === '' && newBlogUrl === '' && newBlogRss === '';
 
@@ -122,10 +131,12 @@ class Admin extends React.Component {
 
     return (
       <div className={style.container}>
+        <HeaderSettings currentPath={context.path} description={description} title={title} />
         <AddBlog onNameChange={this.onNameChange.bind(this)}
                  onUrlChange={this.onUrlChange.bind(this)}
                  onRssChange={this.onRssChange.bind(this)}
                  onFormSubmit={this.onAddFormSubmit.bind(this)}
+                 onSlugRefresh={this.onSlugRefreshClick.bind(this)}
                  nameValid={newBlogNameValid}
                  nameDirty={newBlogNameDirty}
                  urlValid={newBlogUrlValid}
@@ -133,14 +144,14 @@ class Admin extends React.Component {
                  rssValid={newBlogRssValid}
                  rssDirty={newBlogRssDirty}
                  shouldCleanUp={shouldCleanUp}
-                 addBlogLoading={addBlogLoading}
+                 addBlogLoading={addBlogLoading || refreshSlugLoading}
         />
         <BlogList blogList={blogList}
                   blogListLoading={blogListLoading}
                   onDeleteClick={this.onDeleteClick.bind(this)}
                   onEditClick={this.onEditClick.bind(this)}
                   onRefreshClick={this.onRefreshClick.bind(this)}
-                  refreshLoading={refreshBlogLoading}
+                  refreshLoading={refreshBlogLoading || refreshSlugLoading}
         />
         <Confirm question="Czy jesteś pewien, że chcesz usunąć bloga?" isVisible={deleteBlogRequested} onCancelClick={this.onDeleteCancelClick.bind(this)} onConfirmClick={this.onDeleteConfirmClick.bind(this)} />
         <Message type="alert" message={errorMessage} isVisible={blogListError || addBlogError} />
