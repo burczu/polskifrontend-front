@@ -5,23 +5,26 @@
 .container
   width 100%
   padding $global-margin + 5px 0 $global-margin
-  border-bottom 2px dashed $color-tertiary
+  border-bottom 1px solid $color-main-background
+  background $color-secondary
   text-align center
+  z-index 100
 
   .list
 
     &__item
       display inline-block
-      margin 0 $global-margin
+      margin 0 $global-margin * 0.5
 
     &__link
       color $color-tertiary
       text-decoration none
       font-weight bold
       font-size 1.3em
-      font-family $font-header
+      font-family $font-text
       position relative
       transition color $animation-time
+      text-transform uppercase
 
       &:hover
         color lighten($color-tertiary, 5%)
@@ -30,12 +33,13 @@
           color lighten($color-tertiary, 5%)
 
       i
-        margin-right 8px
+        margin 0
         color $color-tertiary
         transition color $animation-time
         font-size 1.6em
 
         @media screen and (min-width: 768px)
+          margin-right 8px
           font-size inherit
 
     &__text
