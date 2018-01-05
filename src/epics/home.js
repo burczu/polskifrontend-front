@@ -8,6 +8,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { getArticlesQuery } from '../graphql/queries/articles';
 
 export const getBlogListEpic = (action$, { getState }) => {
   return action$.ofType(constants.HOME_GET_BLOG_LIST)
@@ -28,7 +29,8 @@ export const getBlogListEpic = (action$, { getState }) => {
 export const getBlogListRequestEpic = (action$, { getState }) => {
   return action$.ofType(constants.HOME_GET_BLOG_LIST_REQUEST)
     .mergeMap((action) => {
-      return ajax.post(`${apiUrl}/blogs/graphql`, getBlogsQuery(action.payload.page), getDefaultHeaders())
+      const { page } = action.payload;
+      return ajax.post(`${apiUrl}/blogs/graphql`, getBlogsQuery(page), getDefaultHeaders())
         .map(responseData => {
           const { blogs, nextPage, errors } = responseData.response.data.blogs;
 
@@ -85,15 +87,17 @@ export const switchToListViewEpic = (action$, { getState }) => {
 
 export const switchToListViewRequestEpic = (action$, { getState }) => {
   return action$.ofType(constants.HOME_SWITCH_TO_LIST_VIEW_REQUEST)
-    .mergeMap(action =>
-      ajax.get(`${apiUrl}/articles/all/${action.payload.page}`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' }))
+    .mergeMap((action) => {
+      const { page } = action.payload;
+      return ajax.post(`${apiUrl}/articles/graphql`, getArticlesQuery(page), getDefaultHeaders())
         .map(responseData => {
-          const { success, message, articles, nextPage } = responseData.response;
-          if (success === false) {
+          const { articles, nextPage, errors } = responseData.response.data.articles;
+
+          if (errors && errors.length > 0) {
             return {
               type: constants.HOME_SWITCH_TO_LIST_VIEW_ERROR,
               payload: {
-                message
+                message: errors[0].message
               }
             };
           }
@@ -121,6 +125,7 @@ export const switchToListViewRequestEpic = (action$, { getState }) => {
             error
           }
         }));
+    });
 };
 
 export const addLinkToClickedEpic = (action$, { getState }) => {

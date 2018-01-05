@@ -7,8 +7,8 @@ import 'rxjs/add/operator/catch';
 
 export const articlesGetArticleEpic = (action$) => {
   return action$.ofType(constants.ARTICLES_GET_ARTICLE)
-    .mergeMap(action =>
-      ajax.get(`${apiUrl}/articles/${action.payload.slug}`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' }))
+    .mergeMap((action) => {
+      return ajax.get(`${apiUrl}/articles/${action.payload.slug}`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' })
         .map(responseData => {
           const { success, message, article } = responseData.response;
           if (success === false) {
@@ -27,10 +27,11 @@ export const articlesGetArticleEpic = (action$) => {
             }
           };
         })
-        .catch(error => ({
-          type: constants.ARTICLES_GET_ARTICLE_ERROR,
-          payload: {
-            error
-          }
-        }));
+          .catch(error => ({
+            type: constants.ARTICLES_GET_ARTICLE_ERROR,
+            payload: {
+              error
+            }
+          }));
+    });
 };

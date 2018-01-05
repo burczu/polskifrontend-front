@@ -2,17 +2,16 @@ import { initialState as homeState } from '../../reducers/home';
 import fetch from '../../core/fetch';
 import { apiUrl, getDefaultHeaders } from '../../config';
 import { getBlogsQuery } from '../../graphql/queries/blogs';
+import { getArticlesQuery } from '../../graphql/queries/articles';
 
 const getData = async(settings) => {
-  const url = settings.tiles ? `${apiUrl}/blogs/graphql` : `${apiUrl}/articles/all/1`;
-  const options = {
+  const url = settings.tiles ? `${apiUrl}/blogs/graphql` : `${apiUrl}/articles/graphql`;
+
+  const response = await fetch(url, {
     headers: getDefaultHeaders(),
-    method: settings.tiles ? 'POST' : 'GET'
-  };
-  if (settings.tiles) {
-    options.body = getBlogsQuery(1);
-  }
-  const response = await fetch(url, options);
+    method: 'POST',
+    body: settings.tiles ? getBlogsQuery(1) : getArticlesQuery(1)
+  });
 
   return await response.json();
 };
@@ -34,8 +33,12 @@ export default async function getHomeInitialState(settings) {
           homeState.blogListNextPage = nextPage;
         }
       } else {
-        homeState.allArticlesList = remoteData.articles;
-        homeState.allArticlesNextPage = remoteData.nextPage;
+        const { articles, nextPage, errors } = remoteData.data.articles;
+
+        if (!errors) {
+          homeState.allArticlesList = articles;
+          homeState.allArticlesNextPage = nextPage;
+        }
       }
     }
   } catch (error) {

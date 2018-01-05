@@ -1,6 +1,6 @@
 export const getBlogsQuery = (page) => {
-  const query =
-    `query {
+  const query = `
+    query {
       blogs(page: ${page}) {
         blogs {
           _id,
