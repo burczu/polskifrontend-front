@@ -9,6 +9,13 @@ export const analytics = {
   }
 };
 
+export const getDefaultHeaders = () => {
+  return {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  };
+};
+
 const api = {
   dev: {
     url: 'http://localhost:port'

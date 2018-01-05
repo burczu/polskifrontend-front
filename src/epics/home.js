@@ -1,6 +1,7 @@
 import * as constants from '../constants';
 import { ajax } from 'rxjs/observable/dom/ajax';
-import { apiUrl } from '../config';
+import { apiUrl, getDefaultHeaders } from '../config';
+import { getBlogsQuery } from '../graphql/queries/blogs';
 import _ from 'lodash';
 import * as settingsHelper from '../core/helpers/settingsHelper';
 import 'rxjs/add/observable/of';
@@ -26,15 +27,16 @@ export const getBlogListEpic = (action$, { getState }) => {
 
 export const getBlogListRequestEpic = (action$, { getState }) => {
   return action$.ofType(constants.HOME_GET_BLOG_LIST_REQUEST)
-    .mergeMap(action =>
-      ajax.get(`${apiUrl}/blogs/all/${action.payload.page}`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' })
+    .mergeMap((action) => {
+      return ajax.post(`${apiUrl}/blogs/graphql`, getBlogsQuery(action.payload.page), getDefaultHeaders())
         .map(responseData => {
-          const { blogs, nextPage, success, message } = responseData.response;
-          if (success === false) {
+          const { blogs, nextPage, errors } = responseData.response.data.blogs;
+
+          if (errors && errors.length > 0) {
             return {
               type: constants.HOME_GET_BLOG_LIST_ERROR,
               payload: {
-                message
+                message: errors[0].message
               }
             };
           }
@@ -61,8 +63,8 @@ export const getBlogListRequestEpic = (action$, { getState }) => {
           payload: {
             error
           }
-        }))
-    );
+        }));
+    });
 };
 
 export const switchToListViewEpic = (action$, { getState }) => {

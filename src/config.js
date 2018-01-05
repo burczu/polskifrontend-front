@@ -9,6 +9,15 @@ export const analytics = {
   }
 };
 
+export const getDefaultHeaders = () => {
+  return {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'Authorization': 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw=='
+  };
+};
+
+
 const api = {
   dev: {
     url: 'http://localhost:8880'

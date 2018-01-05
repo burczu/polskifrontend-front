@@ -1,28 +1,45 @@
 import { initialState as homeState } from '../../reducers/home';
 import fetch from '../../core/fetch';
-import { apiUrl } from '../../config';
+import { apiUrl, getDefaultHeaders } from '../../config';
+import { getBlogsQuery } from '../../graphql/queries/blogs';
+
+const getData = async(settings) => {
+  const url = settings.tiles ? `${apiUrl}/blogs/graphql` : `${apiUrl}/articles/all/1`;
+  const options = {
+    headers: getDefaultHeaders(),
+    method: settings.tiles ? 'POST' : 'GET'
+  };
+  if (settings.tiles) {
+    options.body = getBlogsQuery(1);
+  }
+  const response = await fetch(url, options);
+
+  return await response.json();
+};
 
 export default async function getHomeInitialState(settings) {
-  // set up settings stored in cookies
-  homeState.isTilesOptionSelected = settings.tiles;
-  homeState.isListOptionSelected = !settings.tiles;
-  homeState.clickedLinks = settings.clickedLinks || [];
+  try {
+    // set up settings stored in cookies
+    homeState.isTilesOptionSelected = settings.tiles;
+    homeState.isListOptionSelected = !settings.tiles;
+    homeState.clickedLinks = settings.clickedLinks || [];
 
-  const url = settings.tiles ? `${apiUrl}/blogs/all/1` : `${apiUrl}/articles/all/1`;
-  const getData = async() => {
-    const response = await fetch(url, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' });
-    return await response.json();
-  };
+    const remoteData = await getData(settings);
+    if (remoteData) {
+      if (settings.tiles) {
+        const { blogs, nextPage, errors } = remoteData.data.blogs;
 
-  const remoteData = await getData();
-  if (remoteData.success) {
-    if (settings.tiles) {
-      homeState.blogList = remoteData.blogs;
-      homeState.blogListNextPage = remoteData.nextPage;
-    } else {
-      homeState.allArticlesList = remoteData.articles;
-      homeState.allArticlesNextPage = remoteData.nextPage;
+        if (!errors) {
+          homeState.blogList = blogs;
+          homeState.blogListNextPage = nextPage;
+        }
+      } else {
+        homeState.allArticlesList = remoteData.articles;
+        homeState.allArticlesNextPage = remoteData.nextPage;
+      }
     }
+  } catch (error) {
+    console.log(error); // eslint-disable-line
   }
 
   return homeState;
