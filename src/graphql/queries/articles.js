@@ -25,3 +25,30 @@ export const getArticlesQuery = (page) => {
 
   return JSON.stringify({ query });
 };
+
+export const getArticleBySlugQuery = (slug) => {
+  const query = `
+    query {
+      articleBySlug(slug: "${slug}") {
+        _id,
+        title,
+        href,
+        description,
+        date,
+        slug,
+        _blog {
+          _id,
+          name,
+          href,
+          rss,
+          favicon,
+          slug,
+          publishedDate
+        }
+      }
+    }
+  `;
+
+  return JSON.stringify({ query });
+};
+
