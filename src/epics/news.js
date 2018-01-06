@@ -1,36 +1,46 @@
 import * as constants from '../constants';
 import { ajax } from 'rxjs/observable/dom/ajax';
-import { apiUrl } from '../config';
+import { apiUrl, getDefaultHeaders } from '../config';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { getAllNewsesQuery } from '../graphql/queries/news';
 
 export const getNewsPageEpic = (action$, store) => {
   return action$.ofType(constants.NEWS_GET_NEWS_PAGE)
-    .mergeMap(action =>
-      ajax.get(`${apiUrl}/news/${action.payload.page}`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' }))
-        .map(responseData => {
-          if (responseData.response.success === false) {
+    .mergeMap((action) => {
+      const { page } = action.payload;
+      return ajax.post(`${apiUrl}/news/graphql`, getAllNewsesQuery(page), getDefaultHeaders())
+        .map((responseData) => {
+          const { errors } = responseData.response;
+          if (errors && errors.length > 0) {
             return {
               type: constants.NEWS_GET_NEWS_PAGE_ERROR,
-              payload: responseData.response.message
+              payload: {
+                message: errors[0].message
+              }
             };
           }
 
+          const { newses, nextPage } = responseData.response.data.getAll;
+
           const state = store.getState().newsState;
           const newsList = state.newsList;
-          newsList.push(...responseData.response.newses);
+          newsList.push(...newses);
 
           return {
             type: constants.NEWS_GET_NEWS_PAGE_SUCCESS,
             payload: {
               newsList,
-              nextPage: responseData.response.nextPage
+              nextPage
             }
           };
         })
         .catch(error => ({
           type: constants.NEWS_GET_NEWS_PAGE_ERROR,
-          payload: error
+          payload: {
+            message: error
+          }
         }));
+    });
 };
