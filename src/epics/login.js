@@ -1,12 +1,13 @@
 import * as constants from '../constants';
 import { ajax } from 'rxjs/observable/dom/ajax';
 import * as loginHelper from '../core/helpers/loginHelper';
-import { apiUrl } from '../config';
+import { apiUrl, getDefaultHeaders } from '../config';
 import sha1 from 'sha1';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { authenticateQuery } from '../graphql/queries/login';
 
 export const userChangeEpic = (action$, { getState }) => {
   return action$.ofType(constants.LOGIN_USER_CHANGED)
@@ -44,17 +45,28 @@ export const passwordChangeEpic = (action$, { getState }) => {
 
 export const loginEpic = (action$) => {
   return action$.ofType(constants.LOGIN_INVOKE)
-    .mergeMap(action =>
-      ajax({
-        url: `${apiUrl}/users/authenticate`,
-        body: { user: action.payload.user, password: action.payload.password },
-        headers: { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' },
-        method: 'POST',
-        responseType: 'json'
-      }).map(data => {
-        if (data.response.success) {
+    .mergeMap((action) => {
+      const { user, password } = action.payload;
+      return ajax({
+        url: `${apiUrl}/users/graphql`,
+        body: authenticateQuery(user, password),
+        headers: getDefaultHeaders(),
+        method: 'POST'
+      }).map((responseData) => {
+        const { errors } = responseData.response;
+        if (errors && errors.length > 0) {
+          return {
+            type: constants.LOGIN_INVOKE_ERROR,
+            payload: {
+              message: errors[0].message
+            }
+          };
+        }
+
+        const { success, token } = responseData.response.data.authenticate;
+        if (success) {
           // set cookie for later use
-          loginHelper.saveLoginToken(data.response.token);
+          loginHelper.saveLoginToken(token);
 
           return {
             type: constants.LOGIN_INVOKE_SUCCESS
@@ -63,12 +75,16 @@ export const loginEpic = (action$) => {
 
         return {
           type: constants.LOGIN_INVOKE_ERROR,
-          payload: data.message
+          payload: {
+            message: 'Login failed'
+          }
         };
       })
       .catch(error => ({
         type: constants.LOGIN_INVOKE_ERROR,
-        payload: error
-      }))
-    );
+        payload: {
+          message: error
+        }
+      }));
+    });
 };
