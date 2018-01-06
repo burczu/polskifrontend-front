@@ -26,3 +26,13 @@ export const getBlogsQuery = (page) => {
 
   return JSON.stringify({ query });
 };
+
+export const submitBlogQuery = (blogName, email) => {
+  const query = `
+    mutation {
+      submit(blogName: "${blogName}", email: "${email}")
+    }
+  `;
+
+  return JSON.stringify({ query });
+};

@@ -32,7 +32,7 @@ export const getBlogListRequestEpic = (action$, { getState }) => {
       const { page } = action.payload;
       return ajax.post(`${apiUrl}/blogs/graphql`, getBlogsQuery(page), getDefaultHeaders())
         .map(responseData => {
-          const { blogs, nextPage, errors } = responseData.response.data.blogs;
+          const { errors } = responseData.response;
 
           if (errors && errors.length > 0) {
             return {
@@ -42,6 +42,8 @@ export const getBlogListRequestEpic = (action$, { getState }) => {
               }
             };
           }
+
+          const { blogs, nextPage } = responseData.response.data.blogs;
 
           const state = getState().homeState;
           const newBlogList = _.cloneDeep(state.blogList);
@@ -91,7 +93,7 @@ export const switchToListViewRequestEpic = (action$, { getState }) => {
       const { page } = action.payload;
       return ajax.post(`${apiUrl}/articles/graphql`, getArticlesQuery(page), getDefaultHeaders())
         .map(responseData => {
-          const { articles, nextPage, errors } = responseData.response.data.articles;
+          const { errors } = responseData.response;
 
           if (errors && errors.length > 0) {
             return {
@@ -101,6 +103,8 @@ export const switchToListViewRequestEpic = (action$, { getState }) => {
               }
             };
           }
+
+          const { articles, nextPage } = responseData.response.data.articles;
 
           const state = getState().homeState;
           const newArticlesList = _.cloneDeep(state.allArticlesList);
