@@ -1,7 +1,7 @@
 export const authenticateQuery = (user, password) => {
   const query = `
     mutation {
-      authenticate(user: "${user}", password: "${password}") {
+      userAuthenticate(user: "${user}", password: "${password}") {
         success
         token
       }

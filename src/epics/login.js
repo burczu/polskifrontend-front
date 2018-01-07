@@ -48,7 +48,7 @@ export const loginEpic = (action$) => {
     .mergeMap((action) => {
       const { user, password } = action.payload;
       return ajax({
-        url: `${apiUrl}/users/graphql`,
+        url: `${apiUrl}/public/graphql`,
         body: authenticateQuery(user, password),
         headers: getDefaultHeaders(),
         method: 'POST'
@@ -63,7 +63,7 @@ export const loginEpic = (action$) => {
           };
         }
 
-        const { success, token } = responseData.response.data.authenticate;
+        const { success, token } = responseData.response.data.userAuthenticate;
         if (success) {
           // set cookie for later use
           loginHelper.saveLoginToken(token);

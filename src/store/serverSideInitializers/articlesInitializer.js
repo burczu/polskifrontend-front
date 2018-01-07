@@ -3,7 +3,7 @@ import { apiUrl, getDefaultHeaders } from '../../config';
 import { getArticleBySlugQuery } from '../../graphql/queries/articles';
 
 export default async function getArticlesInitialState(slug, state) {
-  const url = `${apiUrl}/articles/graphql`;
+  const url = `${apiUrl}/public/graphql`;
   const getData = async() => {
     const response = await fetch(url, {
       headers: getDefaultHeaders(),

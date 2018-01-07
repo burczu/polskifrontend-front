@@ -10,7 +10,7 @@ export const articlesGetArticleEpic = (action$) => {
   return action$.ofType(constants.ARTICLES_GET_ARTICLE)
     .mergeMap((action) => {
       const { slug } = action.payload;
-      return ajax.post(`${apiUrl}/articles/graphql`, getArticleBySlugQuery(slug), getDefaultHeaders())
+      return ajax.post(`${apiUrl}/public/graphql`, getArticleBySlugQuery(slug), getDefaultHeaders())
         .map(responseData => {
           const { errors } = responseData.response;
           if (errors && errors.length > 0) {

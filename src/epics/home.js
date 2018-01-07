@@ -30,7 +30,7 @@ export const getBlogListRequestEpic = (action$, { getState }) => {
   return action$.ofType(constants.HOME_GET_BLOG_LIST_REQUEST)
     .mergeMap((action) => {
       const { page } = action.payload;
-      return ajax.post(`${apiUrl}/blogs/graphql`, getBlogsQuery(page), getDefaultHeaders())
+      return ajax.post(`${apiUrl}/public/graphql`, getBlogsQuery(page), getDefaultHeaders())
         .map(responseData => {
           const { errors } = responseData.response;
 
@@ -91,7 +91,7 @@ export const switchToListViewRequestEpic = (action$, { getState }) => {
   return action$.ofType(constants.HOME_SWITCH_TO_LIST_VIEW_REQUEST)
     .mergeMap((action) => {
       const { page } = action.payload;
-      return ajax.post(`${apiUrl}/articles/graphql`, getArticlesQuery(page), getDefaultHeaders())
+      return ajax.post(`${apiUrl}/public/graphql`, getArticlesQuery(page), getDefaultHeaders())
         .map(responseData => {
           const { errors } = responseData.response;
 

@@ -30,7 +30,7 @@ export const getBlogsQuery = (page) => {
 export const submitBlogQuery = (blogName, email) => {
   const query = `
     mutation {
-      submit(blogName: "${blogName}", email: "${email}")
+      blogSubmit(blogName: "${blogName}", email: "${email}")
     }
   `;
 

@@ -10,7 +10,7 @@ export const getNewsPageEpic = (action$, store) => {
   return action$.ofType(constants.NEWS_GET_NEWS_PAGE)
     .mergeMap((action) => {
       const { page } = action.payload;
-      return ajax.post(`${apiUrl}/news/graphql`, getAllNewsesQuery(page), getDefaultHeaders())
+      return ajax.post(`${apiUrl}/public/graphql`, getAllNewsesQuery(page), getDefaultHeaders())
         .map((responseData) => {
           const { errors } = responseData.response;
           if (errors && errors.length > 0) {
@@ -22,7 +22,7 @@ export const getNewsPageEpic = (action$, store) => {
             };
           }
 
-          const { newses, nextPage } = responseData.response.data.getAll;
+          const { newses, nextPage } = responseData.response.data.newses;
 
           const state = store.getState().newsState;
           const newsList = state.newsList;

@@ -1,7 +1,7 @@
 export const getAllNewsesQuery = (page) => {
   const query = `
     {
-      getAll(page: ${page}) {
+      newses(page: ${page}) {
         newses {
           _id
           title

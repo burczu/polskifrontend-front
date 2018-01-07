@@ -1,7 +1,7 @@
 export const submitFeedbackQuery = (email, feedback) => {
   const query = `
     mutation {
-      submit(email: "${email}", feedback: "${feedback}")
+      feedbackSubmit(email: "${email}", feedback: "${feedback}")
     }
   `;
 

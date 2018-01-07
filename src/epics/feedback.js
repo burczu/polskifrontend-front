@@ -45,7 +45,7 @@ export const sendFeedbackEpic = (action$) => {
     .mergeMap((action) => {
       const { email, feedback } = action.payload;
       return ajax({
-        url: `${apiUrl}/feedback/graphql`,
+        url: `${apiUrl}/public/graphql`,
         body: submitFeedbackQuery(email, feedback),
         headers: getDefaultHeaders(),
         method: 'POST'

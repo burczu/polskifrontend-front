@@ -44,7 +44,7 @@ export const sendBlogRequestEpic = action$ => {
   return action$.ofType(constants.SUBMIT_BLOG_SEND)
     .mergeMap((action) =>
       ajax({
-        url: `${apiUrl}/blogs/graphql`,
+        url: `${apiUrl}/public/graphql`,
         body: submitBlogQuery(action.payload.blogName, action.payload.email),
         headers: getDefaultHeaders(),
         method: 'POST'

@@ -5,7 +5,7 @@ import { getBlogsQuery } from '../../graphql/queries/blogs';
 import { getArticlesQuery } from '../../graphql/queries/articles';
 
 const getData = async(settings) => {
-  const url = settings.tiles ? `${apiUrl}/blogs/graphql` : `${apiUrl}/articles/graphql`;
+  const url = settings.tiles ? `${apiUrl}/public/graphql` : `${apiUrl}/public/graphql`;
 
   const response = await fetch(url, {
     headers: getDefaultHeaders(),
