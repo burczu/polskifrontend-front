@@ -1,11 +1,12 @@
 import * as constants from '../constants';
 import * as validators from '../core/helpers/validators';
 import { ajax } from 'rxjs/observable/dom/ajax';
-import { apiUrl } from '../config';
+import { apiUrl, getDefaultHeaders } from '../config';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { submitFeedbackQuery } from '../graphql/queries/feedback';
 
 export const feedbackTextChangedEpic = (action$) => {
   return action$.ofType(constants.FEEDBACK_TEXT_CHANGED)
@@ -41,34 +42,33 @@ export const feedbackEmailChangedEpic = (action$) => {
 
 export const sendFeedbackEpic = (action$) => {
   return action$.ofType(constants.FEEDBACK_SEND)
-    .mergeMap(action =>
-      ajax({
-        url: `${apiUrl}/feedback`,
-        body: action.payload,
-        headers: { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' },
-        method: 'POST',
-        responseType: 'json'
+    .mergeMap((action) => {
+      const { email, feedback } = action.payload;
+      return ajax({
+        url: `${apiUrl}/public/graphql`,
+        body: submitFeedbackQuery(email, feedback),
+        headers: getDefaultHeaders(),
+        method: 'POST'
       }).map(responseData => {
-        const { success, message, newses } = responseData.response;
-        if (success === false) {
+        const { errors } = responseData.response;
+        if (errors && errors.length > 0) {
           return {
             type: constants.FEEDBACK_SEND_ERROR,
-            payload: message
+            payload: {
+              message: errors[0].message
+            }
           };
         }
 
         return {
-          type: constants.FEEDBACK_SEND_SUCCESS,
-          payload: {
-            newsList: newses
-          }
+          type: constants.FEEDBACK_SEND_SUCCESS
         };
       })
       .catch(error => ({
         type: constants.FEEDBACK_SEND_ERROR,
         payload: {
-          error
+          message: error
         }
-      }))
-    );
+      }));
+    });
 };

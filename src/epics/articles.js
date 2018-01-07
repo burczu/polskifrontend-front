@@ -1,21 +1,23 @@
 import * as constants from '../constants';
 import { ajax } from 'rxjs/observable/dom/ajax';
-import { apiUrl } from '../config';
+import { apiUrl, getDefaultHeaders } from '../config';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { getArticleBySlugQuery } from '../graphql/queries/articles';
 
 export const articlesGetArticleEpic = (action$) => {
   return action$.ofType(constants.ARTICLES_GET_ARTICLE)
-    .mergeMap(action =>
-      ajax.get(`${apiUrl}/articles/${action.payload.slug}`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' }))
+    .mergeMap((action) => {
+      const { slug } = action.payload;
+      return ajax.post(`${apiUrl}/public/graphql`, getArticleBySlugQuery(slug), getDefaultHeaders())
         .map(responseData => {
-          const { success, message, article } = responseData.response;
-          if (success === false) {
+          const { errors } = responseData.response;
+          if (errors && errors.length > 0) {
             return {
               type: constants.ARTICLES_GET_ARTICLE_ERROR,
               payload: {
-                message
+                message: errors[0].message
               }
             };
           }
@@ -23,14 +25,15 @@ export const articlesGetArticleEpic = (action$) => {
           return {
             type: constants.ARTICLES_GET_ARTICLE_SUCCESS,
             payload: {
-              article
+              article: responseData.response.data.articleBySlug
             }
           };
         })
         .catch(error => ({
           type: constants.ARTICLES_GET_ARTICLE_ERROR,
           payload: {
-            error
+            message: error
           }
         }));
+    });
 };

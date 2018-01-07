@@ -1,11 +1,12 @@
 import * as constants from '../constants';
 import * as validators from '../core/helpers/validators';
 import { ajax } from 'rxjs/observable/dom/ajax';
-import { apiUrl } from '../config';
+import { apiUrl, getDefaultHeaders } from '../config';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { submitBlogQuery } from '../graphql/queries/blogs';
 
 export const urlChangedEpic = action$ => {
   return action$.ofType(constants.SUBMIT_URL_CHANGED)
@@ -41,29 +42,27 @@ export const emailChangedEpic = action$ => {
 
 export const sendBlogRequestEpic = action$ => {
   return action$.ofType(constants.SUBMIT_BLOG_SEND)
-    .mergeMap(action =>
+    .mergeMap((action) =>
       ajax({
-        url: `${apiUrl}/blogs/submit`,
-        body: action.payload,
-        headers: { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' },
-        method: 'POST',
-        responseType: 'json'
+        url: `${apiUrl}/public/graphql`,
+        body: submitBlogQuery(action.payload.blogName, action.payload.email),
+        headers: getDefaultHeaders(),
+        method: 'POST'
       }).map(responseData => {
-        if (responseData.response.success === false) {
+        const { errors } = responseData.response;
+
+        if (errors && errors.length > 0) {
           return {
-            type: constants.SUBMIT_BLOG_SEND_ERROR,
-            payload: responseData.response.message
+            type: constants.SUBMIT_BLOG_SEND_ERROR
           };
         }
 
         return {
-          type: constants.SUBMIT_BLOG_SEND_SUCCESS,
-          payload: responseData.message
+          type: constants.SUBMIT_BLOG_SEND_SUCCESS
         };
       })
-        .catch(error => ({
-          type: constants.SUBMIT_BLOG_SEND_ERROR,
-          payload: error
-        }))
+      .catch(() => ({
+        type: constants.SUBMIT_BLOG_SEND_ERROR
+      }))
     );
 };

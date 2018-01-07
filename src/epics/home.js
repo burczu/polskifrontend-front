@@ -1,12 +1,14 @@
 import * as constants from '../constants';
 import { ajax } from 'rxjs/observable/dom/ajax';
-import { apiUrl } from '../config';
+import { apiUrl, getDefaultHeaders } from '../config';
+import { getBlogsQuery } from '../graphql/queries/blogs';
 import _ from 'lodash';
 import * as settingsHelper from '../core/helpers/settingsHelper';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { getArticlesQuery } from '../graphql/queries/articles';
 
 export const getBlogListEpic = (action$, { getState }) => {
   return action$.ofType(constants.HOME_GET_BLOG_LIST)
@@ -26,18 +28,22 @@ export const getBlogListEpic = (action$, { getState }) => {
 
 export const getBlogListRequestEpic = (action$, { getState }) => {
   return action$.ofType(constants.HOME_GET_BLOG_LIST_REQUEST)
-    .mergeMap(action =>
-      ajax.get(`${apiUrl}/blogs/all/${action.payload.page}`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' })
+    .mergeMap((action) => {
+      const { page } = action.payload;
+      return ajax.post(`${apiUrl}/public/graphql`, getBlogsQuery(page), getDefaultHeaders())
         .map(responseData => {
-          const { blogs, nextPage, success, message } = responseData.response;
-          if (success === false) {
+          const { errors } = responseData.response;
+
+          if (errors && errors.length > 0) {
             return {
               type: constants.HOME_GET_BLOG_LIST_ERROR,
               payload: {
-                message
+                message: errors[0].message
               }
             };
           }
+
+          const { blogs, nextPage } = responseData.response.data.blogs;
 
           const state = getState().homeState;
           const newBlogList = _.cloneDeep(state.blogList);
@@ -61,8 +67,8 @@ export const getBlogListRequestEpic = (action$, { getState }) => {
           payload: {
             error
           }
-        }))
-    );
+        }));
+    });
 };
 
 export const switchToListViewEpic = (action$, { getState }) => {
@@ -83,18 +89,22 @@ export const switchToListViewEpic = (action$, { getState }) => {
 
 export const switchToListViewRequestEpic = (action$, { getState }) => {
   return action$.ofType(constants.HOME_SWITCH_TO_LIST_VIEW_REQUEST)
-    .mergeMap(action =>
-      ajax.get(`${apiUrl}/articles/all/${action.payload.page}`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' }))
+    .mergeMap((action) => {
+      const { page } = action.payload;
+      return ajax.post(`${apiUrl}/public/graphql`, getArticlesQuery(page), getDefaultHeaders())
         .map(responseData => {
-          const { success, message, articles, nextPage } = responseData.response;
-          if (success === false) {
+          const { errors } = responseData.response;
+
+          if (errors && errors.length > 0) {
             return {
               type: constants.HOME_SWITCH_TO_LIST_VIEW_ERROR,
               payload: {
-                message
+                message: errors[0].message
               }
             };
           }
+
+          const { articles, nextPage } = responseData.response.data.articles;
 
           const state = getState().homeState;
           const newArticlesList = _.cloneDeep(state.allArticlesList);
@@ -119,6 +129,7 @@ export const switchToListViewRequestEpic = (action$, { getState }) => {
             error
           }
         }));
+    });
 };
 
 export const addLinkToClickedEpic = (action$, { getState }) => {

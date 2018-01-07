@@ -21,7 +21,7 @@ import getAdminInitialState from './store/serverSideInitializers/adminBlogsIniti
 import getAdminNewsInitialState from './store/serverSideInitializers/adminNewsInitializer';
 import getNewsInitialState from './store/serverSideInitializers/newsInitializer';
 import { initialState as articlesState } from './reducers/articles';
-import { port, apiUrl } from './config';
+import { port, apiUrl, getDefaultHeaders } from './config';
 import fetch from './core/fetch';
 import { Helmet } from 'react-helmet';
 import * as cookies from './core/helpers/cookieHelper';
@@ -51,38 +51,47 @@ app.use(bodyParser.json());
 
 // sitemap handling
 app.get('/sitemap.xml', async(req, res) => {
-  const url = `${apiUrl}/misc/sitemap`;
+  const url = `${apiUrl}/misc/graphql`;
   const getData = async() => {
-    const response = await fetch(url, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' });
+    const response = await fetch(url, {
+      headers: getDefaultHeaders(),
+      body: JSON.stringify({ query: 'query { sitemap }' }),
+      method: 'POST'
+    });
+
     return await response.json();
   };
 
   const sitemap = await getData();
 
-  if (sitemap.success === false) {
+  if (sitemap.errors) {
     return res.status(503).end();
   }
 
   res.header('Content-Type', 'application/xml');
-  res.send(sitemap.xml);
+  res.send(sitemap.data.sitemap);
 });
 
 // feed handling
 app.get('/feed',  async(req, res) => {
-  const url = `${apiUrl}/misc/feed`;
+  const url = `${apiUrl}/misc/graphql`;
   const getData = async() => {
-    const response = await fetch(url, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' });
+    const response = await fetch(url, {
+      headers: getDefaultHeaders(),
+      body: JSON.stringify({ query: 'query { feed }' }),
+      method: 'POST'
+    });
     return await response.json();
   };
 
   const rssData = await getData();
 
-  if (rssData.success === false) {
+  if (rssData.errors) {
     return res.status(503).end();
   }
 
   res.header('Content-Type', 'application/rss+xml');
-  res.send(rssData.feed);
+  res.send(rssData.data.feed);
 });
 
 //
