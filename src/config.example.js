@@ -10,10 +10,16 @@ export const analytics = {
 };
 
 export const getDefaultHeaders = () => {
-  return {
+  const result = {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
   };
+
+  if (withToken) {
+    result['X-Access-Token'] = 'XXX'; // get it from cookie or something
+  }
+
+  return result;
 };
 
 const api = {
