@@ -35,11 +35,11 @@ class Feedback extends React.Component {
     event.preventDefault();
 
     const { actions: {
-      sendFeedback
+      feedbackSend
     }, feedbackState } = this.props;
 
     if (feedbackState.emailValid && feedbackState.feedbackValid && feedbackState.captcha !== null) {
-      sendFeedback(feedbackState.email, feedbackState.feedback);
+      feedbackSend(feedbackState.email, feedbackState.feedback);
     }
   }
 

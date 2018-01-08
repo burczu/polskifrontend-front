@@ -35,8 +35,8 @@ class Home extends React.Component {
   onTilesOptionClick(event) {
     event.preventDefault();
 
-    const { actions: { getBlogList } } = this.props;
-    getBlogList(1);
+    const { actions: { homeBlogListGet } } = this.props;
+    homeBlogListGet(1);
   }
 
   onAllListScrolledBottom() {
@@ -47,9 +47,9 @@ class Home extends React.Component {
   }
 
   onBlogListScrolledBottom() {
-    const { actions: { getBlogList }, homeState: { blogListNextPage, blogListLoading } } = this.props;
+    const { actions: { homeBlogListGet }, homeState: { blogListNextPage, blogListLoading } } = this.props;
     if (blogListLoading === false && blogListNextPage > 1) {
-      getBlogList(blogListNextPage);
+      homeBlogListGet(blogListNextPage);
     }
   }
 
