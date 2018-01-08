@@ -27,7 +27,7 @@ export function feedbackCaptchaChanged(value) {
   };
 }
 
-export function sendFeedback(email, feedback) {
+export function feedbackSend(email, feedback) {
   return {
     type: constants.FEEDBACK_SEND,
     payload: {
@@ -37,8 +37,8 @@ export function sendFeedback(email, feedback) {
   };
 }
 
-export function resetFeedbackState() {
+export function feedbackStateReset() {
   return {
-    type: constants.FEEDBACK_RESET_STATE
+    type: constants.FEEDBACK_STATE_RESET
   };
 }

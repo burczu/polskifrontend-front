@@ -12,13 +12,13 @@ import 'rxjs/add/operator/takeUntil';
 import { getArticlesQuery } from '../graphql/queries/articles';
 
 export const getBlogListEpic = (action$, { getState }) => {
-  return action$.ofType(constants.HOME_GET_BLOG_LIST)
+  return action$.ofType(constants.HOME_BLOG_LIST_GET)
     .mergeMap((action) => {
       const { page } = action.payload;
       const state = getState().homeState;
 
       return Observable.of({ // eslint-disable-line no-undef
-        type: constants.HOME_GET_BLOG_LIST_REQUEST,
+        type: constants.HOME_BLOG_LIST_GET_REQUEST,
         payload: {
           page,
           blogList: page === 1 ? [] : state.blogList
@@ -28,7 +28,7 @@ export const getBlogListEpic = (action$, { getState }) => {
 };
 
 export const getBlogListRequestEpic = (action$, { getState }) => {
-  return action$.ofType(constants.HOME_GET_BLOG_LIST_REQUEST)
+  return action$.ofType(constants.HOME_BLOG_LIST_GET_REQUEST)
     .mergeMap((action) => {
       const { page } = action.payload;
       return ajax.post(`${apiUrl}/public/graphql`, getBlogsQuery(page), getDefaultHeaders())
@@ -37,7 +37,7 @@ export const getBlogListRequestEpic = (action$, { getState }) => {
 
           if (errors && errors.length > 0) {
             return {
-              type: constants.HOME_GET_BLOG_LIST_ERROR,
+              type: constants.HOME_BLOG_LIST_GET_ERROR,
               payload: {
                 message: errors[0].message
               }
@@ -56,7 +56,7 @@ export const getBlogListRequestEpic = (action$, { getState }) => {
           settingsHelper.saveSettings(tilesSettings);
 
           return {
-            type: constants.HOME_GET_BLOG_LIST_SUCCESS,
+            type: constants.HOME_BLOG_LIST_GET_SUCCESS,
             payload: {
               blogs: newBlogList,
               nextPage
@@ -65,7 +65,7 @@ export const getBlogListRequestEpic = (action$, { getState }) => {
         })
         .takeUntil(action$.ofType(constants.GLOBALS_ROUTE_CHANGED))
         .catch(error => ({
-          type: constants.HOME_GET_BLOG_LIST_ERROR,
+          type: constants.HOME_BLOG_LIST_GET_ERROR,
           payload: {
             error
           }
@@ -74,13 +74,13 @@ export const getBlogListRequestEpic = (action$, { getState }) => {
 };
 
 export const switchToListViewEpic = (action$, { getState }) => {
-  return action$.ofType(constants.HOME_SWITCH_TO_LIST_VIEW)
+  return action$.ofType(constants.HOME_ARTICLE_LIST_GET)
     .mergeMap((action) => {
       const { page } = action.payload;
       const state = getState().homeState;
 
       return Observable.of({ // eslint-disable-line no-undef
-        type: constants.HOME_SWITCH_TO_LIST_VIEW_REQUEST,
+        type: constants.HOME_ARTICLE_LIST_GET_REQUEST,
         payload: {
           page,
           articlesList: page === 1 ? [] : state.allArticlesList
@@ -90,7 +90,7 @@ export const switchToListViewEpic = (action$, { getState }) => {
 };
 
 export const switchToListViewRequestEpic = (action$, { getState }) => {
-  return action$.ofType(constants.HOME_SWITCH_TO_LIST_VIEW_REQUEST)
+  return action$.ofType(constants.HOME_ARTICLE_LIST_GET_REQUEST)
     .mergeMap((action) => {
       const { page } = action.payload;
       return ajax.post(`${apiUrl}/public/graphql`, getArticlesQuery(page), getDefaultHeaders())
@@ -99,7 +99,7 @@ export const switchToListViewRequestEpic = (action$, { getState }) => {
 
           if (errors && errors.length > 0) {
             return {
-              type: constants.HOME_SWITCH_TO_LIST_VIEW_ERROR,
+              type: constants.HOME_ARTICLE_LIST_GET_ERROR,
               payload: {
                 message: errors[0].message
               }
@@ -118,7 +118,7 @@ export const switchToListViewRequestEpic = (action$, { getState }) => {
           settingsHelper.saveSettings(listSettings);
 
           return {
-            type: constants.HOME_SWITCH_TO_LIST_VIEW_SUCCESS,
+            type: constants.HOME_ARTICLE_LIST_GET_SUCCESS,
             payload: {
               articles: newArticlesList,
               nextPage
@@ -127,7 +127,7 @@ export const switchToListViewRequestEpic = (action$, { getState }) => {
         })
         .takeUntil(action$.ofType(constants.GLOBALS_ROUTE_CHANGED))
         .catch(error => ({
-          type: constants.HOME_SWITCH_TO_LIST_VIEW_ERROR,
+          type: constants.HOME_ARTICLE_LIST_GET_ERROR,
           payload: {
             error
           }

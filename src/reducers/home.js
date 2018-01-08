@@ -28,18 +28,18 @@ export default function homeReducer(state = initialState, action) {
     case constants.HOME_DATA_LOADED_RESET:
       return { ...state, dataLoaded: false };
 
-    case constants.HOME_GET_BLOG_LIST_REQUEST:
+    case constants.HOME_BLOG_LIST_GET_REQUEST:
       return { ...state, blogListLoading: true, blogList: action.payload.blogList, blogListError: false };
-    case constants.HOME_GET_BLOG_LIST_SUCCESS:
+    case constants.HOME_BLOG_LIST_GET_SUCCESS:
       return { ...state, blogList: action.payload.blogs, blogListNextPage: action.payload.nextPage, blogListLoading: false, isTilesOptionSelected: true, isListOptionSelected: false };
-    case constants.HOME_GET_BLOG_LIST_ERROR:
+    case constants.HOME_BLOG_LIST_GET_ERROR:
       return { ...state, blogListLoading: false, blogListError: true };
 
-    case constants.HOME_SWITCH_TO_LIST_VIEW_REQUEST:
+    case constants.HOME_ARTICLE_LIST_GET_REQUEST:
       return { ...state, allArticlesListLoading: true, allArticlesList: action.payload.articlesList, allArticlesListError: false };
-    case constants.HOME_SWITCH_TO_LIST_VIEW_SUCCESS:
+    case constants.HOME_ARTICLE_LIST_GET_SUCCESS:
       return { ...state, allArticlesList: action.payload.articles, allArticlesNextPage: action.payload.nextPage, allArticlesListLoading: false, isTilesOptionSelected: false, isListOptionSelected: true };
-    case constants.HOME_SWITCH_TO_LIST_VIEW_ERROR:
+    case constants.HOME_ARTICLE_LIST_GET_ERROR:
       return { ...state, allArticlesListLoading: false, allArticlesListError: true };
 
     case constants.HOME_UPDATE_CLICKED_LIST:

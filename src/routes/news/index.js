@@ -22,7 +22,7 @@ export default {
       context.store.getState().newsState = { ...newState, dataLoaded: true };
     } else if (state.dataLoaded === false) {
       // client side loading
-      context.store.dispatch(actions.getNewsPage(1));
+      context.store.dispatch(actions.newsPageGet(1));
     }
 
     return {

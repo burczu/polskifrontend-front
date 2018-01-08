@@ -8,7 +8,7 @@ import 'rxjs/add/operator/takeUntil';
 import { getAllNewsesQuery } from '../graphql/queries/news';
 
 export const getNewsPageEpic = (action$, store) => {
-  return action$.ofType(constants.NEWS_GET_NEWS_PAGE)
+  return action$.ofType(constants.NEWS_PAGE_GET)
     .mergeMap((action) => {
       const { page } = action.payload;
       return ajax.post(`${apiUrl}/public/graphql`, getAllNewsesQuery(page), getDefaultHeaders())
@@ -16,7 +16,7 @@ export const getNewsPageEpic = (action$, store) => {
           const { errors } = responseData.response;
           if (errors && errors.length > 0) {
             return {
-              type: constants.NEWS_GET_NEWS_PAGE_ERROR,
+              type: constants.NEWS_PAGE_GET_ERROR,
               payload: {
                 message: errors[0].message
               }
@@ -30,7 +30,7 @@ export const getNewsPageEpic = (action$, store) => {
           newsList.push(...newses);
 
           return {
-            type: constants.NEWS_GET_NEWS_PAGE_SUCCESS,
+            type: constants.NEWS_PAGE_GET_SUCCESS,
             payload: {
               newsList,
               nextPage
@@ -39,7 +39,7 @@ export const getNewsPageEpic = (action$, store) => {
         })
         .takeUntil(action$.ofType(constants.GLOBALS_ROUTE_CHANGED))
         .catch(error => ({
-          type: constants.NEWS_GET_NEWS_PAGE_ERROR,
+          type: constants.NEWS_PAGE_GET_ERROR,
           payload: {
             message: error
           }

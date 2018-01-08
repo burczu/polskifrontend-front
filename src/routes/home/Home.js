@@ -28,8 +28,8 @@ class Home extends React.Component {
   onListOptionClick(event) {
     event.preventDefault();
 
-    const { actions: { switchToListView } } = this.props;
-    switchToListView(1);
+    const { actions: { homeArticleListGet } } = this.props;
+    homeArticleListGet(1);
   }
 
   onTilesOptionClick(event) {
@@ -40,9 +40,9 @@ class Home extends React.Component {
   }
 
   onAllListScrolledBottom() {
-    const { actions: { switchToListView }, homeState: { allArticlesNextPage, allArticlesListLoading } } = this.props;
+    const { actions: { homeArticleListGet }, homeState: { allArticlesNextPage, allArticlesListLoading } } = this.props;
     if (allArticlesListLoading === false && allArticlesNextPage > 1) {
-      switchToListView(allArticlesNextPage);
+      homeArticleListGet(allArticlesNextPage);
     }
   }
 
@@ -54,7 +54,7 @@ class Home extends React.Component {
   }
 
   onLinkClicked(url, isToday) {
-    const { actions: { addLinkToClicked }, homeState: { clickedLinks } } = this.props;
+    const { actions: { homeAddLinkToClicked }, homeState: { clickedLinks } } = this.props;
     const link = clickedLinks.find(item => item === url);
     if (!link && isToday) {
       const settings = settingsHelper.getSettings();
@@ -69,7 +69,7 @@ class Home extends React.Component {
       settings.clickedLinks = clicked;
       settingsHelper.saveSettings(settings);
 
-      addLinkToClicked({ url, date: Date.now() });
+      homeAddLinkToClicked({ url, date: Date.now() });
     }
 
     return false;

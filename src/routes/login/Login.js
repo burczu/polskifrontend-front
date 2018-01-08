@@ -24,23 +24,23 @@ class Login extends React.Component {
   onUserChange(event) {
     event.preventDefault();
 
-    const { actions: { userChange } } = this.props;
-    userChange(event.target.value);
+    const { actions: { loginUserChange } } = this.props;
+    loginUserChange(event.target.value);
   }
 
   onPasswordChange(event) {
     event.preventDefault();
 
-    const { actions: { passwordChange } } = this.props;
-    passwordChange(event.target.value);
+    const { actions: { loginPasswordChange } } = this.props;
+    loginPasswordChange(event.target.value);
   }
 
   onLoginClick(event) {
     event.preventDefault();
 
-    const { actions: { login }, loginState: { userName, password } } = this.props;
+    const { actions: { loginInvoke }, loginState: { userName, password } } = this.props;
     if (userName !== '' && password !== '') {
-      login(userName, password);
+      loginInvoke(userName, password);
     }
   }
 

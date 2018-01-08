@@ -1,24 +1,24 @@
 import * as constants from '../constants';
 
-export function getBlogList(page) {
+export function homeBlogListGet(page) {
   return {
-    type: constants.HOME_GET_BLOG_LIST,
+    type: constants.HOME_BLOG_LIST_GET,
     payload: {
       page
     }
   };
 }
 
-export function switchToListView(page) {
+export function homeArticleListGet(page) {
   return {
-    type: constants.HOME_SWITCH_TO_LIST_VIEW,
+    type: constants.HOME_ARTICLE_LIST_GET,
     payload: {
       page
     }
   };
 }
 
-export function addLinkToClicked(url) {
+export function homeAddLinkToClicked(url) {
   return {
     type: constants.HOME_ADD_LINK_TO_CLICKED,
     payload: {

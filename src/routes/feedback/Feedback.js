@@ -46,13 +46,13 @@ class Feedback extends React.Component {
   onFeedbackSubmitAgain(event) {
     event.preventDefault();
 
-    const { actions: { resetFeedbackState } } = this.props;
-    resetFeedbackState();
+    const { actions: { feedbackStateReset } } = this.props;
+    feedbackStateReset();
   }
 
   onGoBackClick() {
-    const { actions: { resetFeedbackState } } = this.props;
-    resetFeedbackState();
+    const { actions: { feedbackStateReset } } = this.props;
+    feedbackStateReset();
   }
 
   render() {

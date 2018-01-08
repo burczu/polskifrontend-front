@@ -25,14 +25,14 @@ export default function submitReducer(state = initialState, action) {
     case constants.SUBMIT_CAPTCHA_CHANGED:
       return { ...state, captcha: action.payload.captcha, shouldCleanUp: false };
 
-    case constants.SUBMIT_BLOG_SEND:
+    case constants.SUBMIT_BLOG_REQUEST_SEND:
       return { ...state, sending: true, sendError: false, shouldCleanUp: false };
-    case constants.SUBMIT_BLOG_SEND_SUCCESS:
+    case constants.SUBMIT_BLOG_REQUEST_SEND_SUCCESS:
       return { ...state, sending: false, sendError: false, sent: true, shouldCleanUp: false };
-    case constants.SUBMIT_BLOG_SEND_ERROR:
+    case constants.SUBMIT_BLOG_REQUEST_SEND_ERROR:
       return { ...state, sending: false, sendError: true, sent: false, shouldCleanUp: false };
 
-    case constants.SUBMIT_RESET_STATE:
+    case constants.SUBMIT_STATE_RESET:
       return { ...initialState, shouldCleanUp: true };
     default:
       return { ...state };

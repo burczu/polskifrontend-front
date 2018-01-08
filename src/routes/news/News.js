@@ -21,9 +21,9 @@ class News extends React.Component {
   }
 
   onScrolledBottom() {
-    const { actions: { getNewsPage }, newsState: { newsListNextPage, newsListLoading } } = this.props;
+    const { actions: { newsPageGet }, newsState: { newsListNextPage, newsListLoading } } = this.props;
     if (newsListLoading === false && newsListNextPage > 1) {
-      getNewsPage(newsListNextPage);
+      newsPageGet(newsListNextPage);
     }
   }
 

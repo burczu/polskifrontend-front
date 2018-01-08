@@ -14,9 +14,9 @@ export default function newsReducer(state = initialState, action) {
     case constants.NEWS_DATA_LOADED_RESET:
       return { ...state, dataLoaded: false };
 
-    case constants.NEWS_GET_NEWS_PAGE:
+    case constants.NEWS_PAGE_GET:
       return { ...state, newsListLoading: true, newsListError: false };
-    case constants.NEWS_GET_NEWS_PAGE_SUCCESS:
+    case constants.NEWS_PAGE_GET_SUCCESS:
       return {
         ...state,
         newsListLoading: false,
@@ -24,7 +24,7 @@ export default function newsReducer(state = initialState, action) {
         newsList: action.payload.newsList,
         newsListNextPage: action.payload.nextPage
       };
-    case constants.NEWS_GET_NEWS_PAGE_ERROR:
+    case constants.NEWS_PAGE_GET_ERROR:
       return { ...state, newsListLoading: false, newsListError: true };
     default:
       return { ...state };

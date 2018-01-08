@@ -42,7 +42,7 @@ export default function feedbackReducer(state = initialState, action) {
     case constants.FEEDBACK_SEND_ERROR:
       return { ...state, sending: false, sendError: true, sent: false, shouldCleanUp: false };
 
-    case constants.FEEDBACK_RESET_STATE:
+    case constants.FEEDBACK_STATE_RESET:
       return { ...initialState, shouldCleanUp: true };
     default:
       return { ...state };

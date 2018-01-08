@@ -8,7 +8,7 @@ import 'rxjs/add/operator/takeUntil';
 import { getArticleBySlugQuery } from '../graphql/queries/articles';
 
 export const articlesGetArticleEpic = (action$) => {
-  return action$.ofType(constants.ARTICLES_GET_ARTICLE)
+  return action$.ofType(constants.ARTICLES_ARTICLE_GET)
     .mergeMap((action) => {
       const { slug } = action.payload;
       return ajax.post(`${apiUrl}/public/graphql`, getArticleBySlugQuery(slug), getDefaultHeaders())
@@ -16,7 +16,7 @@ export const articlesGetArticleEpic = (action$) => {
           const { errors } = responseData.response;
           if (errors && errors.length > 0) {
             return {
-              type: constants.ARTICLES_GET_ARTICLE_ERROR,
+              type: constants.ARTICLES_ARTICLE_GET_ERROR,
               payload: {
                 message: errors[0].message
               }
@@ -24,7 +24,7 @@ export const articlesGetArticleEpic = (action$) => {
           }
 
           return {
-            type: constants.ARTICLES_GET_ARTICLE_SUCCESS,
+            type: constants.ARTICLES_ARTICLE_GET_SUCCESS,
             payload: {
               article: responseData.response.data.articleBySlug
             }
@@ -32,7 +32,7 @@ export const articlesGetArticleEpic = (action$) => {
         })
         .takeUntil(action$.ofType(constants.GLOBALS_ROUTE_CHANGED))
         .catch(error => ({
-          type: constants.ARTICLES_GET_ARTICLE_ERROR,
+          type: constants.ARTICLES_ARTICLE_GET_ERROR,
           payload: {
             message: error
           }

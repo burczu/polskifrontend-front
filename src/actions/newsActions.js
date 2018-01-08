@@ -1,8 +1,8 @@
 import * as constants from '../constants';
 
-export function getNewsPage(page) {
+export function newsPageGet(page) {
   return {
-    type: constants.NEWS_GET_NEWS_PAGE,
+    type: constants.NEWS_PAGE_GET,
     payload: {
       page
     }

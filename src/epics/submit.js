@@ -42,7 +42,7 @@ export const emailChangedEpic = action$ => {
 };
 
 export const sendBlogRequestEpic = action$ => {
-  return action$.ofType(constants.SUBMIT_BLOG_SEND)
+  return action$.ofType(constants.SUBMIT_BLOG_REQUEST_SEND)
     .mergeMap((action) =>
       ajax({
         url: `${apiUrl}/public/graphql`,
@@ -54,17 +54,17 @@ export const sendBlogRequestEpic = action$ => {
 
         if (errors && errors.length > 0) {
           return {
-            type: constants.SUBMIT_BLOG_SEND_ERROR
+            type: constants.SUBMIT_BLOG_REQUEST_SEND_ERROR
           };
         }
 
         return {
-          type: constants.SUBMIT_BLOG_SEND_SUCCESS
+          type: constants.SUBMIT_BLOG_REQUEST_SEND_SUCCESS
         };
       })
       .takeUntil(action$.ofType(constants.GLOBALS_ROUTE_CHANGED))
       .catch(() => ({
-        type: constants.SUBMIT_BLOG_SEND_ERROR
+        type: constants.SUBMIT_BLOG_REQUEST_SEND_ERROR
       }))
     );
 };

@@ -1,16 +1,16 @@
 import * as constants from '../constants';
 
-export function articlesGetArticle(slug) {
+export function articlesArticleGet(slug) {
   return {
-    type: constants.ARTICLES_GET_ARTICLE,
+    type: constants.ARTICLES_ARTICLE_GET,
     payload: {
       slug
     }
   };
 }
 
-export function articlesClearDataLoaded() {
+export function articlesDataLoadedReset() {
   return {
-    type: constants.ARTICLES_CLEAR_DATA_LOADED
+    type: constants.ARTICLES_DATA_LOADED_RESET
   };
 }

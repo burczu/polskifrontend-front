@@ -17,8 +17,8 @@ class Articles extends React.Component {
   };
 
   componentWillUnmount() {
-    const { actions: { articlesClearDataLoaded } } = this.props;
-    articlesClearDataLoaded();
+    const { actions: { articlesDataLoadedReset } } = this.props;
+    articlesDataLoadedReset();
   }
 
   render() {

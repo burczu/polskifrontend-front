@@ -1,6 +1,6 @@
 import * as constants from '../constants';
 
-export function userChange(newValue) {
+export function loginUserChange(newValue) {
   return {
     type: constants.LOGIN_USER_CHANGED,
     payload: {
@@ -9,7 +9,7 @@ export function userChange(newValue) {
   };
 }
 
-export function passwordChange(newValue) {
+export function loginPasswordChange(newValue) {
   return {
     type: constants.LOGIN_PASSWORD_CHANGED,
     payload: {
@@ -18,7 +18,7 @@ export function passwordChange(newValue) {
   };
 }
 
-export function login(user, password) {
+export function loginInvoke(user, password) {
   return {
     type: constants.LOGIN_INVOKE,
     payload: {

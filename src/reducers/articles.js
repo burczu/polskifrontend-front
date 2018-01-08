@@ -10,12 +10,12 @@ export const initialState = {
 
 export default function articlesReducer(state = initialState, action) {
   switch (action.type) {
-    case constants.ARTICLES_CLEAR_DATA_LOADED:
+    case constants.ARTICLES_DATA_LOADED_RESET:
       return { ...state, dataLoaded: false };
 
-    case constants.ARTICLES_GET_ARTICLE:
+    case constants.ARTICLES_ARTICLE_GET:
       return { ...state, articleLoading: true, articleError: false };
-    case constants.ARTICLES_GET_ARTICLE_SUCCESS:
+    case constants.ARTICLES_ARTICLE_GET_SUCCESS:
       return {
         ...state,
         articleLoaded: true,
@@ -23,7 +23,7 @@ export default function articlesReducer(state = initialState, action) {
         articleError: false,
         article: action.payload.article
       };
-    case constants.ARTICLES_GET_ARTICLE_ERROR:
+    case constants.ARTICLES_ARTICLE_GET_ERROR:
       return { ...state, articleLoaded: false, articleLoading: false, articleError: true };
     default:
       return { ...state };

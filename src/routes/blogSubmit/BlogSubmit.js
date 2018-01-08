@@ -17,42 +17,42 @@ class BlogSubmit extends React.Component {
   };
 
   onUrlChange(event) {
-    const { actions: { urlChanged } } = this.props;
-    urlChanged(event.target.value || '');
+    const { actions: { submitUrlChanged } } = this.props;
+    submitUrlChanged(event.target.value || '');
   }
 
   onEmailChange(event) {
-    const { actions: { emailChanged } } = this.props;
-    emailChanged(event.target.value || '');
+    const { actions: { submitEmailChanged } } = this.props;
+    submitEmailChanged(event.target.value || '');
   }
 
   onCapchaChange(value) {
-    const { actions: { captchaChanged } } = this.props;
-    captchaChanged(value);
+    const { actions: { submitCaptchaChanged } } = this.props;
+    submitCaptchaChanged(value);
   }
 
   onBlogSubmit(event) {
     event.preventDefault();
 
     const { actions: {
-      sendBlogRequest
+      submitBlogRequestSend
     }, submitState } = this.props;
 
     if (submitState.urlValid && (submitState.emailValid || submitState.emailDirty === false) && submitState.captcha !== null) {
-      sendBlogRequest(submitState.url, submitState.email);
+      submitBlogRequestSend(submitState.url, submitState.email);
     }
   }
 
   onSubmitAgain(event) {
     event.preventDefault();
 
-    const { actions: { resetSubmitState } } = this.props;
-    resetSubmitState();
+    const { actions: { submitStateReset } } = this.props;
+    submitStateReset();
   }
 
   onGoBackClick() {
-    const { actions: { resetSubmitState } } = this.props;
-    resetSubmitState();
+    const { actions: { submitStateReset } } = this.props;
+    submitStateReset();
   }
 
   render() {
