@@ -13,9 +13,7 @@ class BlogSubmit extends React.Component {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     context: PropTypes.object.isRequired,
-    description: PropTypes.string.isRequired,
-    submitState: PropTypes.object.isRequired,
-    title: PropTypes.string.isRequired
+    submitState: PropTypes.object.isRequired
   };
 
   onUrlChange(event) {
@@ -58,7 +56,9 @@ class BlogSubmit extends React.Component {
   }
 
   render() {
-    const { submitState, description, title, context } = this.props;
+    const { submitState, context } = this.props;
+    const title = 'Zgłoś serwis | Polski Front-End';
+    const description = 'Jeśli znasz polski serwis, stronę lub blog o front-endzie - zgłoś go tutaj!';
 
     return (
       <div className={styles.container}>

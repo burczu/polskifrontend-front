@@ -4,7 +4,9 @@ export const initialState = {
   newsList: [],
   newsListNextPage: 1,
   newsListLoading: false,
-  newsListError: false
+  newsListError: false,
+
+  dataLoaded: false
 };
 
 export default function newsReducer(state = initialState, action) {

@@ -16,11 +16,6 @@ import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
 import errorPageStyle from './routes/error/ErrorPage.styl';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import configureStore from './store/configureStore';
-import getHomeInitialState from './store/serverSideInitializers/homeInitializer';
-import getAdminInitialState from './store/serverSideInitializers/adminBlogsInitializer';
-import getAdminNewsInitialState from './store/serverSideInitializers/adminNewsInitializer';
-import getNewsInitialState from './store/serverSideInitializers/newsInitializer';
-import { initialState as articlesState } from './reducers/articles';
 import { port, apiUrl, getDefaultHeaders } from './config';
 import fetch from './core/fetch';
 import { Helmet } from 'react-helmet';
@@ -122,28 +117,7 @@ app.get('*', async(req, res, next) => {
   try {
     cookies.setUpCookie(req.universalCookies);
 
-    const settings = cookies.get('PL_FRONT_END_USER_SETTINGS') || { tiles: true, clickedLinks: [], lastNewsVisit: new Date(1900, 1, 1) };
-    const authCookie = cookies.get('PL_FRONT_END');
-
-    const homeState = await getHomeInitialState(settings);
-    const blogsState = await getAdminInitialState(authCookie);
-    const adminNewsState = await getAdminNewsInitialState(authCookie);
-    const newsState = await getNewsInitialState();
-
-    const adminState = {
-      tokenExpired: blogsState.tokenExpired || adminNewsState.tokenExpired
-    };
-
-    const store = configureStore({
-      homeState,
-      adminState,
-      newsState,
-      articlesState,
-      adminBlogsState: blogsState.adminBlogsState,
-      adminNewsState: adminNewsState.adminNewsState
-    }, {
-      cookie: req.header.cookie
-    });
+    const store = configureStore();
 
     const css = new Set();
 

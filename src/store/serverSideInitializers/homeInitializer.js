@@ -24,7 +24,8 @@ export default async function getHomeInitialState(settings) {
     homeState.clickedLinks = settings.clickedLinks || [];
 
     const remoteData = await getData(settings);
-    if (remoteData) {
+    const { errors } = remoteData;
+    if (!errors) {
       if (settings.tiles) {
         const { blogs, nextPage, errors } = remoteData.data.blogs;
 
@@ -40,9 +41,15 @@ export default async function getHomeInitialState(settings) {
           homeState.allArticlesNextPage = nextPage;
         }
       }
+    } else {
+      homeState.articlesError = true;
+      homeState.blogListError = true;
     }
   } catch (error) {
-    console.log(error); // eslint-disable-line
+    homeState.articlesError = true;
+    homeState.blogListError = true;
+
+    homeState.dataLoaded = true;
   }
 
   return homeState;

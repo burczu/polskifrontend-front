@@ -18,7 +18,9 @@ export const initialState = {
   isListOptionSelected: false,
   isTilesOptionSelected: true,
 
-  clickedLinks: []
+  clickedLinks: [],
+
+  dataLoaded: false
 };
 
 export default function homeReducer(state = initialState, action) {

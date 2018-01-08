@@ -2,9 +2,10 @@ import * as constants from '../constants';
 
 export const initialState = {
   article: {},
-  articleLoaded: false,
   articleLoading: false,
-  articleError: false
+  articleError: false,
+
+  dataLoaded: false
 };
 
 export default function articlesReducer(state = initialState, action) {

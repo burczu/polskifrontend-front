@@ -1,15 +1,36 @@
 import React from 'react';
 import Home from './Home';
 import Layout from '../../components/Layout/Layout';
+import * as actions from '../../actions/homeActions';
+import isNode from 'detect-node';
+import { getSettings } from '../../core/helpers/settingsHelper';
+import getHomeInitialState from '../../store/serverSideInitializers/homeInitializer';
 
 export default {
   path: '/',
   async action(context) {
-    const title = 'Polski Front-End';
-    const description = 'Polski Front-End to serwisy i blogi na temat front-endu w jednym miejscu, tylko po polsku. Coś dla każdego web developera!';
+    const settings = getSettings();
+    const state = context.store.getState().homeState;
+
+    if (isNode) {
+      // server side loading
+      const newState = await getHomeInitialState(settings);
+      context.store.getState().homeState = { ...newState, dataLoaded: true };
+    } else if (state.dataLoaded === false) {
+      // client side loading
+      if (settings.tiles) {
+        context.store.dispatch(actions.getBlogList(1));
+      } else {
+        context.store.dispatch(actions.switchToListView(1));
+      }
+    }
 
     return {
-      component: <Layout><Home description={description} title={title} context={context} /></Layout>
+      component: (
+        <Layout>
+          <Home context={context} />
+        </Layout>
+      )
     };
   }
 };

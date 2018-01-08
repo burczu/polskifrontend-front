@@ -12,9 +12,7 @@ class News extends React.Component {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     context: PropTypes.object.isRequired,
-    description: PropTypes.string.isRequired,
-    newsState: PropTypes.object.isRequired,
-    title: PropTypes.string.isRequired
+    newsState: PropTypes.object.isRequired
   };
 
   onScrolledBottom() {
@@ -25,8 +23,15 @@ class News extends React.Component {
   }
 
   render() {
-    const { newsState: { newsList, newsListNextPage, newsListLoading } } = this.props;
-    const { description, title, context } = this.props;
+    const {
+      newsState: {
+        newsList,
+        newsListNextPage,
+        newsListLoading
+      }, context } = this.props;
+    const title = 'Aktualności | Polski Front-End';
+    const description = 'Aktualności dotyczące serwisu Polski Front-End - dowiedz się, co nowego!';
+
     return (
       <div className={styles.container}>
         <HeaderSettings currentPath={context.path} description={description} title={title} />

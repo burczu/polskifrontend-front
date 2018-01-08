@@ -17,9 +17,7 @@ class Home extends React.Component {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     context: PropTypes.object.isRequired,
-    description: PropTypes.string.isRequired,
-    homeState: PropTypes.object.isRequired,
-    title: PropTypes.string.isRequired
+    homeState: PropTypes.object.isRequired
   };
 
   onListOptionClick(event) {
@@ -86,7 +84,9 @@ class Home extends React.Component {
       allArticlesNextPage,
       allArticlesListError,
       clickedLinks
-    }, description, title, context } = this.props;
+    }, context } = this.props;
+    const title = 'Polski Front-End';
+    const description = 'Polski Front-End to serwisy i blogi na temat front-endu w jednym miejscu, tylko po polsku. Coś dla każdego web developera!';
 
     return (
       <div className={style.container}>

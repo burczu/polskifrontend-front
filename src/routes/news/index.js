@@ -2,6 +2,9 @@ import React from 'react';
 import News from './News';
 import Layout from '../../components/Layout/Layout';
 import * as settingsHelper from '../../core/helpers/settingsHelper';
+import * as actions from '../../actions/newsActions';
+import isNode from 'detect-node';
+import getNewsInitialState from '../../store/serverSideInitializers/newsInitializer';
 
 export default {
   path: '/aktualnosci',
@@ -11,11 +14,19 @@ export default {
     settings.lastNewsVisit = Date.now();
     settingsHelper.saveSettings(JSON.stringify(settings));
 
-    const title = 'Aktualności | Polski Front-End';
-    const description = 'Aktualności dotyczące serwisu Polski Front-End - dowiedz się, co nowego!';
+    const state = context.store.getState().newsState;
+
+    if (isNode) {
+      // server side loading
+      const newState = await getNewsInitialState();
+      context.store.getState().newsState = { ...newState, dataLoaded: true };
+    } else if (state.dataLoaded === false) {
+      // client side loading
+      context.store.dispatch(actions.getNewsPage(1));
+    }
 
     return {
-      component: <Layout><News context={context} description={description} title={title} /></Layout>
+      component: <Layout><News context={context} /></Layout>
     };
   }
 };

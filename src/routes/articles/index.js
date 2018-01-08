@@ -11,16 +11,21 @@ export default {
     const slug = context.params.slug;
     const state = context.store.getState().articlesState;
 
-    if (state.articleLoaded === false && isNode) {
+    if (isNode) {
       // server side loading
-      await getArticlesInitialState(slug, state);
-    } else if (state.articleLoaded === false && isNode === false) {
+      const newState = await getArticlesInitialState(slug);
+      context.store.getState().articlesState = { ...newState, dataLoaded: true };
+    } else if (state.articleLoaded === false) {
       // client side loading
       context.store.dispatch(actions.articlesGetArticle(slug));
     }
 
     return {
-      component: <Layout><Articles context={context} /></Layout>
+      component: (
+        <Layout>
+          <Articles context={context} />
+        </Layout>
+      )
     };
   }
 };

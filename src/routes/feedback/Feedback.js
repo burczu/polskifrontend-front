@@ -58,7 +58,9 @@ class Feedback extends React.Component {
   }
 
   render() {
-    const { feedbackState, description, title, context } = this.props;
+    const { feedbackState, context } = this.props;
+    const title = 'Zgłoś uwagi | Polski Front-End';
+    const description = 'Jeśli masz jakiekolwiek uwagi dotyczące działania tego serwisu - zgłoś je tutaj!';
 
     return (
       <div className={styles.container}>

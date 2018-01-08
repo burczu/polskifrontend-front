@@ -15,12 +15,20 @@ const getData = async() => {
 };
 
 export default async function getNewsInitialState() {
-  const remoteData = await getData();
-  const { errors } = remoteData;
-  if (!errors) {
-    const { newses, nextPage } = remoteData.data.newses;
-    newsState.newsList = newses;
-    newsState.newsListNextPage = nextPage;
+  try {
+    const remoteData = await getData();
+    const { errors } = remoteData;
+
+    if (!errors) {
+      const { newses, nextPage } = remoteData.data.newses;
+      newsState.newsList = newses;
+      newsState.newsListNextPage = nextPage;
+    } else {
+      newsState.newsListError = true;
+    }
+  } catch (error) {
+    newsState.newsListError = true;
+    newsState.dataLoaded = true;
   }
 
   return newsState;
