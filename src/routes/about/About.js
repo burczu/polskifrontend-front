@@ -7,9 +7,12 @@ import Link from '../../components/Link/Link';
 import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 const About = (props) => {
+  const title = 'O serwisie | Polski Front-End';
+  const description = 'Zastanawiasz się czym jest serwis Polski Front-End? Na tej stronie znajdziesz odpowiedź.';
+
   return (
     <div className={styles.container}>
-      <HeaderSettings description={props.description} title={props.title} currentPath={props.context.path}/>
+      <HeaderSettings description={description} title={title} currentPath={props.context.path}/>
       <ResponsivePanel header="O serwisie" description="">
         <div className={styles.nav}>
           <Link className={styles.back} to="/">
@@ -32,9 +35,7 @@ const About = (props) => {
 };
 
 About.propTypes = {
-  context: PropTypes.object.isRequired,
-  description: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired
+  context: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(About);

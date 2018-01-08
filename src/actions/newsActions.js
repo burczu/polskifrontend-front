@@ -8,3 +8,9 @@ export function getNewsPage(page) {
     }
   };
 }
+
+export function newsDataLoadedReset() {
+  return {
+    type: constants.NEWS_DATA_LOADED_RESET
+  };
+}

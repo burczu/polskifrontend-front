@@ -6,6 +6,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/takeUntil';
 import { submitBlogQuery } from '../graphql/queries/blogs';
 
 export const urlChangedEpic = action$ => {
@@ -61,6 +62,7 @@ export const sendBlogRequestEpic = action$ => {
           type: constants.SUBMIT_BLOG_SEND_SUCCESS
         };
       })
+      .takeUntil(action$.ofType(constants.GLOBALS_ROUTE_CHANGED))
       .catch(() => ({
         type: constants.SUBMIT_BLOG_SEND_ERROR
       }))

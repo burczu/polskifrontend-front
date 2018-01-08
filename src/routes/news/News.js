@@ -15,6 +15,11 @@ class News extends React.Component {
     newsState: PropTypes.object.isRequired
   };
 
+  componentWillUnmount() {
+    const { actions: { newsDataLoadedReset } } = this.props;
+    newsDataLoadedReset();
+  }
+
   onScrolledBottom() {
     const { actions: { getNewsPage }, newsState: { newsListNextPage, newsListLoading } } = this.props;
     if (newsListLoading === false && newsListNextPage > 1) {

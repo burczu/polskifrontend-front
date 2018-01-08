@@ -8,6 +8,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/takeUntil';
 import { getArticlesQuery } from '../graphql/queries/articles';
 
 export const getBlogListEpic = (action$, { getState }) => {
@@ -62,6 +63,7 @@ export const getBlogListRequestEpic = (action$, { getState }) => {
             }
           };
         })
+        .takeUntil(action$.ofType(constants.GLOBALS_ROUTE_CHANGED))
         .catch(error => ({
           type: constants.HOME_GET_BLOG_LIST_ERROR,
           payload: {
@@ -123,6 +125,7 @@ export const switchToListViewRequestEpic = (action$, { getState }) => {
             }
           };
         })
+        .takeUntil(action$.ofType(constants.GLOBALS_ROUTE_CHANGED))
         .catch(error => ({
           type: constants.HOME_SWITCH_TO_LIST_VIEW_ERROR,
           payload: {

@@ -13,9 +13,7 @@ class Feedback extends React.Component {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     context: PropTypes.object.isRequired,
-    description: PropTypes.string.isRequired,
-    feedbackState: PropTypes.object.isRequired,
-    title: PropTypes.string.isRequired
+    feedbackState: PropTypes.object.isRequired
   };
 
   onFeedbackChange(event) {

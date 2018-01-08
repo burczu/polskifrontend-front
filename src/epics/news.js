@@ -4,6 +4,7 @@ import { apiUrl, getDefaultHeaders } from '../config';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/takeUntil';
 import { getAllNewsesQuery } from '../graphql/queries/news';
 
 export const getNewsPageEpic = (action$, store) => {
@@ -36,6 +37,7 @@ export const getNewsPageEpic = (action$, store) => {
             }
           };
         })
+        .takeUntil(action$.ofType(constants.GLOBALS_ROUTE_CHANGED))
         .catch(error => ({
           type: constants.NEWS_GET_NEWS_PAGE_ERROR,
           payload: {

@@ -6,6 +6,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/takeUntil';
 import { submitFeedbackQuery } from '../graphql/queries/feedback';
 
 export const feedbackTextChangedEpic = (action$) => {
@@ -64,6 +65,7 @@ export const sendFeedbackEpic = (action$) => {
           type: constants.FEEDBACK_SEND_SUCCESS
         };
       })
+      .takeUntil(action$.ofType(constants.GLOBALS_ROUTE_CHANGED))
       .catch(error => ({
         type: constants.FEEDBACK_SEND_ERROR,
         payload: {

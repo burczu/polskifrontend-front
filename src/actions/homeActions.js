@@ -26,3 +26,9 @@ export function addLinkToClicked(url) {
     }
   };
 }
+
+export function homeDataLoadedReset() {
+  return {
+    type: constants.HOME_DATA_LOADED_RESET
+  };
+}

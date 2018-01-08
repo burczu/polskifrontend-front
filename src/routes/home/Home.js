@@ -20,6 +20,11 @@ class Home extends React.Component {
     homeState: PropTypes.object.isRequired
   };
 
+  componentWillUnmount() {
+    const { actions: { homeDataLoadedReset } } = this.props;
+    homeDataLoadedReset();
+  }
+
   onListOptionClick(event) {
     event.preventDefault();
 

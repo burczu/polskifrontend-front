@@ -7,6 +7,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/takeUntil';
 import { authenticateQuery } from '../graphql/queries/login';
 
 export const userChangeEpic = (action$, { getState }) => {
@@ -80,6 +81,7 @@ export const loginEpic = (action$) => {
           }
         };
       })
+      .takeUntil(action$.ofType(constants.GLOBALS_ROUTE_CHANGED))
       .catch(error => ({
         type: constants.LOGIN_INVOKE_ERROR,
         payload: {

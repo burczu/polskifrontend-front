@@ -10,20 +10,6 @@ import {
   passwordChangeEpic,
   loginEpic } from './login';
 import {
-  getAdminBlogListEpic,
-  deleteBlogEpic,
-  addBlogEpic,
-  blogRefreshEpic,
-  slugRefreshEpic,
-  faviconRefreshEpic,
-  newBlogNameChangedEpic,
-  newBlogUrlChangedEpic,
-  newBlogRssChangedEpic } from './adminBlogs';
-import {
-  getAdminNewsListEpic,
-  addNewsEpic,
-  deleteAdminNewsEpic } from './adminNews';
-import {
   urlChangedEpic,
   emailChangedEpic,
   sendBlogRequestEpic } from './submit';
@@ -43,24 +29,12 @@ const rootEpic = combineEpics(
   userChangeEpic,
   passwordChangeEpic,
   loginEpic,
-  getAdminBlogListEpic,
-  deleteBlogEpic,
-  addBlogEpic,
-  blogRefreshEpic,
-  slugRefreshEpic,
-  faviconRefreshEpic,
-  newBlogNameChangedEpic,
-  newBlogUrlChangedEpic,
-  newBlogRssChangedEpic,
   urlChangedEpic,
   emailChangedEpic,
   sendBlogRequestEpic,
   feedbackTextChangedEpic,
   feedbackEmailChangedEpic,
   sendFeedbackEpic,
-  getAdminNewsListEpic,
-  addNewsEpic,
-  deleteAdminNewsEpic,
   getNewsPageEpic,
   articlesGetArticleEpic
 );

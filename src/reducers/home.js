@@ -25,6 +25,9 @@ export const initialState = {
 
 export default function homeReducer(state = initialState, action) {
   switch (action.type) {
+    case constants.HOME_DATA_LOADED_RESET:
+      return { ...state, dataLoaded: false };
+
     case constants.HOME_GET_BLOG_LIST_REQUEST:
       return { ...state, blogListLoading: true, blogList: action.payload.blogList, blogListError: false };
     case constants.HOME_GET_BLOG_LIST_SUCCESS:

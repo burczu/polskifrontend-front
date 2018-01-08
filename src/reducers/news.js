@@ -11,6 +11,9 @@ export const initialState = {
 
 export default function newsReducer(state = initialState, action) {
   switch (action.type) {
+    case constants.NEWS_DATA_LOADED_RESET:
+      return { ...state, dataLoaded: false };
+
     case constants.NEWS_GET_NEWS_PAGE:
       return { ...state, newsListLoading: true, newsListError: false };
     case constants.NEWS_GET_NEWS_PAGE_SUCCESS:

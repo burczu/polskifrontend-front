@@ -21,6 +21,7 @@ import configureStore from './store/configureStore';
 import { updateMeta } from './core/DOMUtils';
 import { ErrorReporter, deepForceUpdate } from './core/devUtils';
 import { setUpCookie } from './core/helpers/cookieHelper';
+import * as constants from './constants';
 
 setUpCookie();
 
@@ -110,7 +111,15 @@ async function onLocationChange(location, action) {
   if (action === 'PUSH') {
     delete scrollPositionsHistory[location.key];
   }
+
+  // cancel all started API requests
+  const tempCurrent = currentLocation;
   currentLocation = location;
+  if (tempCurrent.pathname !== location.pathname && location.pathname !== '/not-found') {
+    store.dispatch({
+      type: constants.GLOBALS_ROUTE_CHANGED
+    });
+  }
 
   try {
     // Traverses the list of routes in the order they are defined until
