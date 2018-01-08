@@ -11,30 +11,30 @@ import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 class Feedback extends React.Component {
   static propTypes = {
-    actions: PropTypes.object.isRequired,
     context: PropTypes.object.isRequired,
-    feedbackState: PropTypes.object.isRequired
+    feedbackState: PropTypes.object.isRequired,
+    publicActions: PropTypes.object.isRequired
   };
 
   onFeedbackChange(event) {
-    const { actions: { feedbackTextChanged } } = this.props;
+    const { publicActions: { feedbackTextChanged } } = this.props;
     feedbackTextChanged(event.target.value || '');
   }
 
   onEmailChange(event) {
-    const { actions: { feedbackEmailChanged } } = this.props;
+    const { publicActions: { feedbackEmailChanged } } = this.props;
     feedbackEmailChanged(event.target.value || '');
   }
 
   onCapchaChange(value) {
-    const { actions: { feedbackCaptchaChanged } } = this.props;
+    const { publicActions: { feedbackCaptchaChanged } } = this.props;
     feedbackCaptchaChanged(value);
   }
 
   onFeedbackSubmit(event) {
     event.preventDefault();
 
-    const { actions: {
+    const { publicActions: {
       feedbackSend
     }, feedbackState } = this.props;
 
@@ -46,12 +46,12 @@ class Feedback extends React.Component {
   onFeedbackSubmitAgain(event) {
     event.preventDefault();
 
-    const { actions: { feedbackStateReset } } = this.props;
+    const { publicActions: { feedbackStateReset } } = this.props;
     feedbackStateReset();
   }
 
   onGoBackClick() {
-    const { actions: { feedbackStateReset } } = this.props;
+    const { publicActions: { feedbackStateReset } } = this.props;
     feedbackStateReset();
   }
 

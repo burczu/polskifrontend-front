@@ -1,17 +1,20 @@
-import * as homeActions from './homeActions';
-import * as loginActions from './loginActions';
-import * as submitActions from './submitActions';
-import * as feedbackActions from './feedbackActions';
-import * as newsActions from './newsActions';
-import * as articlesActions from './articlesActions';
+import * as homeActions from './public/homeActions';
+import * as loginActions from './public/loginActions';
+import * as submitActions from './public/submitActions';
+import * as feedbackActions from './public/feedbackActions';
+import * as newsActions from './public/newsActions';
+import * as articlesActions from './public/articlesActions';
 
-const actions = [
-  homeActions,
-  loginActions,
-  submitActions,
-  feedbackActions,
-  newsActions,
-  articlesActions
-];
+const actions = {
+  publicActions: [
+    homeActions,
+    loginActions,
+    submitActions,
+    feedbackActions,
+    newsActions,
+    articlesActions
+  ],
+  restrictedActions: []
+};
 
 export default actions;

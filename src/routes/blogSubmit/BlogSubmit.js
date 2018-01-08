@@ -11,30 +11,30 @@ import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 class BlogSubmit extends React.Component {
   static propTypes = {
-    actions: PropTypes.object.isRequired,
     context: PropTypes.object.isRequired,
+    publicActions: PropTypes.object.isRequired,
     submitState: PropTypes.object.isRequired
   };
 
   onUrlChange(event) {
-    const { actions: { submitUrlChanged } } = this.props;
+    const { publicActions: { submitUrlChanged } } = this.props;
     submitUrlChanged(event.target.value || '');
   }
 
   onEmailChange(event) {
-    const { actions: { submitEmailChanged } } = this.props;
+    const { publicActions: { submitEmailChanged } } = this.props;
     submitEmailChanged(event.target.value || '');
   }
 
   onCapchaChange(value) {
-    const { actions: { submitCaptchaChanged } } = this.props;
+    const { publicActions: { submitCaptchaChanged } } = this.props;
     submitCaptchaChanged(value);
   }
 
   onBlogSubmit(event) {
     event.preventDefault();
 
-    const { actions: {
+    const { publicActions: {
       submitBlogRequestSend
     }, submitState } = this.props;
 
@@ -46,12 +46,12 @@ class BlogSubmit extends React.Component {
   onSubmitAgain(event) {
     event.preventDefault();
 
-    const { actions: { submitStateReset } } = this.props;
+    const { publicActions: { submitStateReset } } = this.props;
     submitStateReset();
   }
 
   onGoBackClick() {
-    const { actions: { submitStateReset } } = this.props;
+    const { publicActions: { submitStateReset } } = this.props;
     submitStateReset();
   }
 

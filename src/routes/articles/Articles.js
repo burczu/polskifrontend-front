@@ -11,13 +11,13 @@ import ArticleView from './parts/ArticleView';
 
 class Articles extends React.Component {
   static propTypes = {
-    actions: PropTypes.object.isRequired,
     articlesState: PropTypes.object.isRequired,
-    context: PropTypes.object.isRequired
+    context: PropTypes.object.isRequired,
+    publicActions: PropTypes.object.isRequired
   };
 
   componentWillUnmount() {
-    const { actions: { articlesDataLoadedReset } } = this.props;
+    const { publicActions: { articlesDataLoadedReset } } = this.props;
     articlesDataLoadedReset();
   }
 

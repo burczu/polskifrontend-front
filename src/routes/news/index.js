@@ -2,7 +2,7 @@ import React from 'react';
 import News from './News';
 import Layout from '../../components/Layout/Layout';
 import * as settingsHelper from '../../core/helpers/settingsHelper';
-import * as actions from '../../actions/newsActions';
+import * as actions from '../../actions/public/newsActions';
 import isNode from 'detect-node';
 import getNewsInitialState from '../../store/serverSideInitializers/newsInitializer';
 

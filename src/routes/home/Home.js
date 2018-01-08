@@ -15,46 +15,46 @@ import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 class Home extends React.Component {
   static propTypes = {
-    actions: PropTypes.object.isRequired,
     context: PropTypes.object.isRequired,
-    homeState: PropTypes.object.isRequired
+    homeState: PropTypes.object.isRequired,
+    publicActions: PropTypes.object.isRequired
   };
 
   componentWillUnmount() {
-    const { actions: { homeDataLoadedReset } } = this.props;
+    const { publicActions: { homeDataLoadedReset } } = this.props;
     homeDataLoadedReset();
   }
 
   onListOptionClick(event) {
     event.preventDefault();
 
-    const { actions: { homeArticleListGet } } = this.props;
+    const { publicActions: { homeArticleListGet } } = this.props;
     homeArticleListGet(1);
   }
 
   onTilesOptionClick(event) {
     event.preventDefault();
 
-    const { actions: { homeBlogListGet } } = this.props;
+    const { publicActions: { homeBlogListGet } } = this.props;
     homeBlogListGet(1);
   }
 
   onAllListScrolledBottom() {
-    const { actions: { homeArticleListGet }, homeState: { allArticlesNextPage, allArticlesListLoading } } = this.props;
+    const { publicActions: { homeArticleListGet }, homeState: { allArticlesNextPage, allArticlesListLoading } } = this.props;
     if (allArticlesListLoading === false && allArticlesNextPage > 1) {
       homeArticleListGet(allArticlesNextPage);
     }
   }
 
   onBlogListScrolledBottom() {
-    const { actions: { homeBlogListGet }, homeState: { blogListNextPage, blogListLoading } } = this.props;
+    const { publicActions: { homeBlogListGet }, homeState: { blogListNextPage, blogListLoading } } = this.props;
     if (blogListLoading === false && blogListNextPage > 1) {
       homeBlogListGet(blogListNextPage);
     }
   }
 
   onLinkClicked(url, isToday) {
-    const { actions: { homeAddLinkToClicked }, homeState: { clickedLinks } } = this.props;
+    const { publicActions: { homeAddLinkToClicked }, homeState: { clickedLinks } } = this.props;
     const link = clickedLinks.find(item => item === url);
     if (!link && isToday) {
       const settings = settingsHelper.getSettings();

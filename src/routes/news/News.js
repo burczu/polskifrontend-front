@@ -10,18 +10,21 @@ import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 class News extends React.Component {
   static propTypes = {
-    actions: PropTypes.object.isRequired,
     context: PropTypes.object.isRequired,
-    newsState: PropTypes.object.isRequired
+    newsState: PropTypes.object.isRequired,
+    publicActions: PropTypes.object.isRequired
   };
 
   componentWillUnmount() {
-    const { actions: { newsDataLoadedReset } } = this.props;
+    const { publicActions: { newsDataLoadedReset } } = this.props;
     newsDataLoadedReset();
   }
 
   onScrolledBottom() {
-    const { actions: { newsPageGet }, newsState: { newsListNextPage, newsListLoading } } = this.props;
+    const {
+      publicActions: { newsPageGet },
+      newsState: { newsListNextPage, newsListLoading }
+    } = this.props;
     if (newsListLoading === false && newsListNextPage > 1) {
       newsPageGet(newsListNextPage);
     }

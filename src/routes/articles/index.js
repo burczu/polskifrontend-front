@@ -3,7 +3,7 @@ import isNode from 'detect-node';
 import Articles from './Articles';
 import Layout from '../../components/Layout/Layout';
 import getArticlesInitialState from '../../store/serverSideInitializers/articlesInitializer';
-import * as actions from '../../actions/articlesActions';
+import * as actions from '../../actions/public/articlesActions';
 
 export default {
   path: '/artykuly/:slug',

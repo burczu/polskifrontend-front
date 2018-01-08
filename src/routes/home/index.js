@@ -1,7 +1,7 @@
 import React from 'react';
 import Home from './Home';
 import Layout from '../../components/Layout/Layout';
-import * as actions from '../../actions/homeActions';
+import * as actions from '../../actions/public/homeActions';
 import isNode from 'detect-node';
 import { getSettings } from '../../core/helpers/settingsHelper';
 import getHomeInitialState from '../../store/serverSideInitializers/homeInitializer';
