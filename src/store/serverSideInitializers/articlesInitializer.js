@@ -1,4 +1,4 @@
-import { initialState as articlesState } from '../../reducers/articles';
+import { initialState as articlesState } from '../../reducers/public/articles';
 import fetch from '../../core/fetch';
 import { apiUrl, getDefaultHeaders } from '../../config';
 import { getArticleBySlugQuery } from '../../graphql/queries/articles';

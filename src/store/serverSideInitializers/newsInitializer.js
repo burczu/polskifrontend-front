@@ -1,4 +1,4 @@
-import { initialState as newsState } from '../../reducers/news';
+import { initialState as newsState } from '../../reducers/public/news';
 import fetch from '../../core/fetch';
 import { apiUrl, getDefaultHeaders } from '../../config';
 import { getAllNewsesQuery } from '../../graphql/queries/news';

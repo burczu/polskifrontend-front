@@ -10,12 +10,12 @@ export default {
   path: '/',
   async action(context) {
     const settings = getSettings();
-    const state = context.store.getState().homeState;
+    const state = context.store.getState().publicState.homeState;
 
     if (isNode) {
       // server side loading
       const newState = await getHomeInitialState(settings);
-      context.store.getState().homeState = { ...newState, dataLoaded: true };
+      context.store.getState().publicState.homeState = { ...newState, dataLoaded: true };
     } else if (state.dataLoaded === false) {
       // client side loading
       if (settings.tiles) {

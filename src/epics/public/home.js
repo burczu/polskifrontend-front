@@ -1,21 +1,21 @@
-import * as constants from '../constants';
+import * as constants from '../../constants';
 import { ajax } from 'rxjs/observable/dom/ajax';
-import { apiUrl, getDefaultHeaders } from '../config';
-import { getBlogsQuery } from '../graphql/queries/blogs';
+import { apiUrl, getDefaultHeaders } from '../../config';
+import { getBlogsQuery } from '../../graphql/queries/blogs';
 import _ from 'lodash';
-import * as settingsHelper from '../core/helpers/settingsHelper';
+import * as settingsHelper from '../../core/helpers/settingsHelper';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/takeUntil';
-import { getArticlesQuery } from '../graphql/queries/articles';
+import { getArticlesQuery } from '../../graphql/queries/articles';
 
 export const getBlogListEpic = (action$, { getState }) => {
   return action$.ofType(constants.HOME_BLOG_LIST_GET)
     .mergeMap((action) => {
       const { page } = action.payload;
-      const state = getState().homeState;
+      const state = getState().publicState.homeState;
 
       return Observable.of({ // eslint-disable-line no-undef
         type: constants.HOME_BLOG_LIST_GET_REQUEST,
@@ -46,7 +46,7 @@ export const getBlogListRequestEpic = (action$, { getState }) => {
 
           const { blogs, nextPage } = responseData.response.data.blogs;
 
-          const state = getState().homeState;
+          const state = getState().publicState.homeState;
           const newBlogList = _.cloneDeep(state.blogList);
           newBlogList.push(...blogs);
 
@@ -77,7 +77,7 @@ export const switchToListViewEpic = (action$, { getState }) => {
   return action$.ofType(constants.HOME_ARTICLE_LIST_GET)
     .mergeMap((action) => {
       const { page } = action.payload;
-      const state = getState().homeState;
+      const state = getState().publicState.homeState;
 
       return Observable.of({ // eslint-disable-line no-undef
         type: constants.HOME_ARTICLE_LIST_GET_REQUEST,
@@ -108,7 +108,7 @@ export const switchToListViewRequestEpic = (action$, { getState }) => {
 
           const { articles, nextPage } = responseData.response.data.articles;
 
-          const state = getState().homeState;
+          const state = getState().publicState.homeState;
           const newArticlesList = _.cloneDeep(state.allArticlesList);
           newArticlesList.push(...articles);
 
@@ -138,7 +138,7 @@ export const switchToListViewRequestEpic = (action$, { getState }) => {
 export const addLinkToClickedEpic = (action$, { getState }) => {
   return action$.ofType(constants.HOME_ADD_LINK_TO_CLICKED)
     .mergeMap((action) => {
-      const state = getState().homeState;
+      const state = getState().publicState.homeState;
       const links = _.cloneDeep(state.clickedLinks);
       const { url } = action.payload;
 

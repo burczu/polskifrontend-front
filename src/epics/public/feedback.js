@@ -1,13 +1,13 @@
-import * as constants from '../constants';
-import * as validators from '../core/helpers/validators';
+import * as constants from '../../constants';
+import * as validators from '../../core/helpers/validators';
 import { ajax } from 'rxjs/observable/dom/ajax';
-import { apiUrl, getDefaultHeaders } from '../config';
+import { apiUrl, getDefaultHeaders } from '../../config';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/takeUntil';
-import { submitFeedbackQuery } from '../graphql/queries/feedback';
+import { submitFeedbackQuery } from '../../graphql/queries/feedback';
 
 export const feedbackTextChangedEpic = (action$) => {
   return action$.ofType(constants.FEEDBACK_TEXT_CHANGED)

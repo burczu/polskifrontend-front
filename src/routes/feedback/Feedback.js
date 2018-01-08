@@ -3,38 +3,38 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import styles from './Feedback.styl';
 import { connect } from 'react-redux';
-import mapStateToProps from '../../core/redux/mapStateToProps';
-import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
+import mapPublicStateToProps from '../../core/redux/mapPublicStateToProps';
+import mapPublicDispatchToProps from '../../core/redux/mapPublicDispatchToProps';
 import FeedbackForm from './parts/FeedbackForm';
 import Message from '../../components/Indicators/Message';
 import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 class Feedback extends React.Component {
   static propTypes = {
+    actions: PropTypes.object.isRequired,
     context: PropTypes.object.isRequired,
-    feedbackState: PropTypes.object.isRequired,
-    publicActions: PropTypes.object.isRequired
+    feedbackState: PropTypes.object.isRequired
   };
 
   onFeedbackChange(event) {
-    const { publicActions: { feedbackTextChanged } } = this.props;
+    const { actions: { feedbackTextChanged } } = this.props;
     feedbackTextChanged(event.target.value || '');
   }
 
   onEmailChange(event) {
-    const { publicActions: { feedbackEmailChanged } } = this.props;
+    const { actions: { feedbackEmailChanged } } = this.props;
     feedbackEmailChanged(event.target.value || '');
   }
 
   onCapchaChange(value) {
-    const { publicActions: { feedbackCaptchaChanged } } = this.props;
+    const { actions: { feedbackCaptchaChanged } } = this.props;
     feedbackCaptchaChanged(value);
   }
 
   onFeedbackSubmit(event) {
     event.preventDefault();
 
-    const { publicActions: {
+    const { actions: {
       feedbackSend
     }, feedbackState } = this.props;
 
@@ -46,12 +46,12 @@ class Feedback extends React.Component {
   onFeedbackSubmitAgain(event) {
     event.preventDefault();
 
-    const { publicActions: { feedbackStateReset } } = this.props;
+    const { actions: { feedbackStateReset } } = this.props;
     feedbackStateReset();
   }
 
   onGoBackClick() {
-    const { publicActions: { feedbackStateReset } } = this.props;
+    const { actions: { feedbackStateReset } } = this.props;
     feedbackStateReset();
   }
 
@@ -84,4 +84,4 @@ class Feedback extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Feedback));
+export default connect(mapPublicStateToProps, mapPublicDispatchToProps)(withStyles(styles)(Feedback));

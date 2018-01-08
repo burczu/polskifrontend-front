@@ -1,19 +1,17 @@
 import React from 'react';
 import Login from './Login';
-import LayoutAdmin from '../../components/Layout/LayoutAdmin';
-import * as loginHelper from '../../core/helpers/loginHelper';
+import Layout from '../../components/Layout/Layout';
 
 export default {
   path: '/login',
   async action(context) {
-    context.store.getState().adminState.tokenExpired = false;
-    loginHelper.clearLoginToken();
+    // TODO: clear token and use different layout
 
     return {
       component: (
-        <LayoutAdmin>
+        <Layout>
           <Login context={context} />
-        </LayoutAdmin>
+        </Layout>
       )
     };
   }

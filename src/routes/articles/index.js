@@ -9,12 +9,12 @@ export default {
   path: '/artykuly/:slug',
   async action(context) {
     const slug = context.params.slug;
-    const state = context.store.getState().articlesState;
+    const state = context.store.getState().publicState.articlesState;
 
     if (isNode) {
       // server side loading
       const newState = await getArticlesInitialState(slug);
-      context.store.getState().articlesState = { ...newState, dataLoaded: true };
+      context.store.getState().publicState.articlesState = { ...newState, dataLoaded: true };
     } else if (state.articleLoaded === false) {
       // client side loading
       context.store.dispatch(actions.articlesArticleGet(slug));

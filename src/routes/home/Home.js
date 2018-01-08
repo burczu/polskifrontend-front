@@ -6,8 +6,8 @@ import BlogTiles from './parts/BlogTiles';
 import BlogList from './parts/BlogList';
 import BlogListControlPanel from './parts/BlogListControlPanel';
 import { connect } from 'react-redux';
-import mapStateToProps from '../../core/redux/mapStateToProps';
-import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
+import mapPublicStateToProps from '../../core/redux/mapPublicStateToProps';
+import mapPublicDispatchToProps from '../../core/redux/mapPublicDispatchToProps';
 import Message from '../../components/Indicators/Message';
 import * as settingsHelper from '../../core/helpers/settingsHelper';
 import * as dateHelper from '../../core/helpers/dateHelper';
@@ -15,46 +15,46 @@ import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 class Home extends React.Component {
   static propTypes = {
+    actions: PropTypes.object.isRequired,
     context: PropTypes.object.isRequired,
-    homeState: PropTypes.object.isRequired,
-    publicActions: PropTypes.object.isRequired
+    homeState: PropTypes.object.isRequired
   };
 
   componentWillUnmount() {
-    const { publicActions: { homeDataLoadedReset } } = this.props;
+    const { actions: { homeDataLoadedReset } } = this.props;
     homeDataLoadedReset();
   }
 
   onListOptionClick(event) {
     event.preventDefault();
 
-    const { publicActions: { homeArticleListGet } } = this.props;
+    const { actions: { homeArticleListGet } } = this.props;
     homeArticleListGet(1);
   }
 
   onTilesOptionClick(event) {
     event.preventDefault();
 
-    const { publicActions: { homeBlogListGet } } = this.props;
+    const { actions: { homeBlogListGet } } = this.props;
     homeBlogListGet(1);
   }
 
   onAllListScrolledBottom() {
-    const { publicActions: { homeArticleListGet }, homeState: { allArticlesNextPage, allArticlesListLoading } } = this.props;
+    const { actions: { homeArticleListGet }, homeState: { allArticlesNextPage, allArticlesListLoading } } = this.props;
     if (allArticlesListLoading === false && allArticlesNextPage > 1) {
       homeArticleListGet(allArticlesNextPage);
     }
   }
 
   onBlogListScrolledBottom() {
-    const { publicActions: { homeBlogListGet }, homeState: { blogListNextPage, blogListLoading } } = this.props;
+    const { actions: { homeBlogListGet }, homeState: { blogListNextPage, blogListLoading } } = this.props;
     if (blogListLoading === false && blogListNextPage > 1) {
       homeBlogListGet(blogListNextPage);
     }
   }
 
   onLinkClicked(url, isToday) {
-    const { publicActions: { homeAddLinkToClicked }, homeState: { clickedLinks } } = this.props;
+    const { actions: { homeAddLinkToClicked }, homeState: { clickedLinks } } = this.props;
     const link = clickedLinks.find(item => item === url);
     if (!link && isToday) {
       const settings = settingsHelper.getSettings();
@@ -136,4 +136,4 @@ class Home extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(Home));
+export default connect(mapPublicStateToProps, mapPublicDispatchToProps)(withStyles(style)(Home));

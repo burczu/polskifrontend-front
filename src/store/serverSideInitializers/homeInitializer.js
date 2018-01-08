@@ -1,4 +1,4 @@
-import { initialState as homeState } from '../../reducers/home';
+import { initialState as homeState } from '../../reducers/public/home';
 import fetch from '../../core/fetch';
 import { apiUrl, getDefaultHeaders } from '../../config';
 import { getBlogsQuery } from '../../graphql/queries/blogs';

@@ -3,21 +3,21 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import styles from './Articles.styl';
 import { connect } from 'react-redux';
-import mapStateToProps from '../../core/redux/mapStateToProps';
-import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
+import mapPublicStateToProps from '../../core/redux/mapPublicStateToProps';
+import mapPublicDispatchToProps from '../../core/redux/mapPublicDispatchToProps';
 import { decode } from 'he';
 import HeaderSettings from '../../components/Layout/HeaderSettings';
 import ArticleView from './parts/ArticleView';
 
 class Articles extends React.Component {
   static propTypes = {
+    actions: PropTypes.object.isRequired,
     articlesState: PropTypes.object.isRequired,
-    context: PropTypes.object.isRequired,
-    publicActions: PropTypes.object.isRequired
+    context: PropTypes.object.isRequired
   };
 
   componentWillUnmount() {
-    const { publicActions: { articlesDataLoadedReset } } = this.props;
+    const { actions: { articlesDataLoadedReset } } = this.props;
     articlesDataLoadedReset();
   }
 
@@ -45,4 +45,4 @@ class Articles extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Articles));
+export default connect(mapPublicStateToProps, mapPublicDispatchToProps)(withStyles(styles)(Articles));

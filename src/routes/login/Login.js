@@ -4,36 +4,36 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './Login.styl';
 import LoginForm from './parts/LoginForm';
 import { connect } from 'react-redux';
-import mapStateToProps from '../../core/redux/mapStateToProps';
-import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
+import mapPublicStateToProps from '../../core/redux/mapPublicStateToProps';
+import mapPublicDispatchToProps from '../../core/redux/mapPublicDispatchToProps';
 import Message from '../../components/Indicators/Message';
 import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 class Login extends React.Component {
   static propTypes = {
+    actions: PropTypes.object.isRequired,
     context: PropTypes.object,
-    loginState: PropTypes.object.isRequired,
-    publicActions: PropTypes.object.isRequired
+    loginState: PropTypes.object.isRequired
   };
 
   onUserChange(event) {
     event.preventDefault();
 
-    const { publicActions: { loginUserChange } } = this.props;
+    const { actions: { loginUserChange } } = this.props;
     loginUserChange(event.target.value);
   }
 
   onPasswordChange(event) {
     event.preventDefault();
 
-    const { publicActions: { loginPasswordChange } } = this.props;
+    const { actions: { loginPasswordChange } } = this.props;
     loginPasswordChange(event.target.value);
   }
 
   onLoginClick(event) {
     event.preventDefault();
 
-    const { publicActions: { loginInvoke }, loginState: { userName, password } } = this.props;
+    const { actions: { loginInvoke }, loginState: { userName, password } } = this.props;
     if (userName !== '' && password !== '') {
       loginInvoke(userName, password);
     }
@@ -65,4 +65,4 @@ class Login extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(Login));
+export default connect(mapPublicStateToProps, mapPublicDispatchToProps)(withStyles(style)(Login));

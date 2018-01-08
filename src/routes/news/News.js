@@ -3,26 +3,26 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import styles from './News.styl';
 import { connect } from 'react-redux';
-import mapStateToProps from '../../core/redux/mapStateToProps';
-import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
+import mapPublicStateToProps from '../../core/redux/mapPublicStateToProps';
+import mapPublicDispatchToProps from '../../core/redux/mapPublicDispatchToProps';
 import NewsList from './parts/NewsList';
 import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 class News extends React.Component {
   static propTypes = {
+    actions: PropTypes.object.isRequired,
     context: PropTypes.object.isRequired,
-    newsState: PropTypes.object.isRequired,
-    publicActions: PropTypes.object.isRequired
+    newsState: PropTypes.object.isRequired
   };
 
   componentWillUnmount() {
-    const { publicActions: { newsDataLoadedReset } } = this.props;
+    const { actions: { newsDataLoadedReset } } = this.props;
     newsDataLoadedReset();
   }
 
   onScrolledBottom() {
     const {
-      publicActions: { newsPageGet },
+      actions: { newsPageGet },
       newsState: { newsListNextPage, newsListLoading }
     } = this.props;
     if (newsListLoading === false && newsListNextPage > 1) {
@@ -53,4 +53,4 @@ class News extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(News));
+export default connect(mapPublicStateToProps, mapPublicDispatchToProps)(withStyles(styles)(News));

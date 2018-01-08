@@ -4,21 +4,21 @@ import {
   getBlogListRequestEpic,
   switchToListViewEpic,
   switchToListViewRequestEpic,
-  addLinkToClickedEpic } from './home';
+  addLinkToClickedEpic } from './public/home';
 import {
   userChangeEpic,
   passwordChangeEpic,
-  loginEpic } from './login';
+  loginEpic } from './public/login';
 import {
   urlChangedEpic,
   emailChangedEpic,
-  sendBlogRequestEpic } from './submit';
+  sendBlogRequestEpic } from './public/submit';
 import {
   feedbackTextChangedEpic,
   feedbackEmailChangedEpic,
-  sendFeedbackEpic } from './feedback';
-import { getNewsPageEpic } from './news';
-import { articlesGetArticleEpic } from './articles';
+  sendFeedbackEpic } from './public/feedback';
+import { getNewsPageEpic } from './public/news';
+import { articlesGetArticleEpic } from './public/articles';
 
 const rootEpic = combineEpics(
   getBlogListEpic,

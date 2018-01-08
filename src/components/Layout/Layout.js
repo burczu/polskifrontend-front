@@ -9,8 +9,8 @@ import TopHomeLinks from './TopHomeLinks';
 import CookieInfo from '../Cookie/CookieInfo';
 import * as settingsHelper from '../../core/helpers/settingsHelper';
 import { connect } from 'react-redux';
-import mapStateToProps from '../../core/redux/mapStateToProps';
-import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
+import mapPublicStateToProps from '../../core/redux/mapPublicStateToProps';
+import mapPublicDispatchToProps from '../../core/redux/mapPublicDispatchToProps';
 import _ from 'lodash';
 import * as dateHelper from '../../core/helpers/dateHelper';
 
@@ -45,4 +45,4 @@ class Layout extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(Layout));
+export default connect(mapPublicStateToProps, mapPublicDispatchToProps)(withStyles(style)(Layout));

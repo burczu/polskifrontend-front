@@ -1,13 +1,13 @@
-import * as constants from '../constants';
+import * as constants from '../../constants';
 import { ajax } from 'rxjs/observable/dom/ajax';
-import { apiUrl, getDefaultHeaders } from '../config';
+import { apiUrl, getDefaultHeaders } from '../../config';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/takeUntil';
-import { getAllNewsesQuery } from '../graphql/queries/news';
+import { getAllNewsesQuery } from '../../graphql/queries/news';
 
-export const getNewsPageEpic = (action$, store) => {
+export const getNewsPageEpic = (action$, { getState }) => {
   return action$.ofType(constants.NEWS_PAGE_GET)
     .mergeMap((action) => {
       const { page } = action.payload;
@@ -25,7 +25,7 @@ export const getNewsPageEpic = (action$, store) => {
 
           const { newses, nextPage } = responseData.response.data.newses;
 
-          const state = store.getState().newsState;
+          const state = getState().publicState.newsState;
           const newsList = state.newsList;
           newsList.push(...newses);
 

@@ -3,38 +3,38 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import styles from './BlogSubmit.styl';
 import { connect } from 'react-redux';
-import mapStateToProps from '../../core/redux/mapStateToProps';
-import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
+import mapPublicStateToProps from '../../core/redux/mapPublicStateToProps';
+import mapPublicDispatchToProps from '../../core/redux/mapPublicDispatchToProps';
 import SubmitForm from './parts/SubmitForm';
 import Message from '../../components/Indicators/Message';
 import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 class BlogSubmit extends React.Component {
   static propTypes = {
+    actions: PropTypes.object.isRequired,
     context: PropTypes.object.isRequired,
-    publicActions: PropTypes.object.isRequired,
     submitState: PropTypes.object.isRequired
   };
 
   onUrlChange(event) {
-    const { publicActions: { submitUrlChanged } } = this.props;
+    const { actions: { submitUrlChanged } } = this.props;
     submitUrlChanged(event.target.value || '');
   }
 
   onEmailChange(event) {
-    const { publicActions: { submitEmailChanged } } = this.props;
+    const { actions: { submitEmailChanged } } = this.props;
     submitEmailChanged(event.target.value || '');
   }
 
   onCapchaChange(value) {
-    const { publicActions: { submitCaptchaChanged } } = this.props;
+    const { actions: { submitCaptchaChanged } } = this.props;
     submitCaptchaChanged(value);
   }
 
   onBlogSubmit(event) {
     event.preventDefault();
 
-    const { publicActions: {
+    const { actions: {
       submitBlogRequestSend
     }, submitState } = this.props;
 
@@ -46,12 +46,12 @@ class BlogSubmit extends React.Component {
   onSubmitAgain(event) {
     event.preventDefault();
 
-    const { publicActions: { submitStateReset } } = this.props;
+    const { actions: { submitStateReset } } = this.props;
     submitStateReset();
   }
 
   onGoBackClick() {
-    const { publicActions: { submitStateReset } } = this.props;
+    const { actions: { submitStateReset } } = this.props;
     submitStateReset();
   }
 
@@ -84,4 +84,4 @@ class BlogSubmit extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(BlogSubmit));
+export default connect(mapPublicStateToProps, mapPublicDispatchToProps)(withStyles(styles)(BlogSubmit));

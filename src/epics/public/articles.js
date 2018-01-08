@@ -1,11 +1,11 @@
-import * as constants from '../constants';
+import * as constants from '../../constants';
 import { ajax } from 'rxjs/observable/dom/ajax';
-import { apiUrl, getDefaultHeaders } from '../config';
+import { apiUrl, getDefaultHeaders } from '../../config';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/takeUntil';
-import { getArticleBySlugQuery } from '../graphql/queries/articles';
+import { getArticleBySlugQuery } from '../../graphql/queries/articles';
 
 export const articlesGetArticleEpic = (action$) => {
   return action$.ofType(constants.ARTICLES_ARTICLE_GET)
