@@ -3,22 +3,24 @@
 
 import React from 'react';
 import { expect } from 'chai';
-import { render } from 'enzyme';
+import { configure, shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import App from '../App';
 import Layout from './Layout';
 
+configure({ adapter: new Adapter() });
+
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 const initialState = {};
 
-// TODO: write real tests!!
 describe('Layout', () => {
   it('renders children correctly', () => {
     const store = mockStore(initialState);
 
-    const wrapper = render(
+    const wrapper = shallow(
       <App context={{ insertCss: () => {}, store }}>
         <Layout>
           <div className="child" />
@@ -27,5 +29,4 @@ describe('Layout', () => {
     );
     expect(wrapper.find('div.child').length).to.eq(1);
   });
-
 });
