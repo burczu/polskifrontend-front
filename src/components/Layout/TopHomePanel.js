@@ -6,7 +6,7 @@ import logo from '../../../public/polskifrontend_logo_black.png';
 import logo2 from '../../../public/polskifrontend_black@2x.png';
 import Link from '../Link/Link';
 
-const TopHomePanel = (props) => {
+const TopHomePanel = () => {
   return (
     <div className={style.container}>
       <div className={style['container__green']}>
