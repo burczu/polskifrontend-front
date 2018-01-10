@@ -10,7 +10,7 @@ import { decode } from 'he';
 import Waypoint from 'react-waypoint';
 import ReactImageFallback from 'react-image-fallback';
 import noImage from '../../../../public/no_image.png';
-import * as dateHelper from '../../../core/helpers/dateHelper';
+import dateHelper from '../../../core/helpers/dateHelper';
 
 const BlogList = props => {
   return (

@@ -7,7 +7,7 @@ import Link from '../../../components/Link/Link';
 import Loader from '../../../components/Indicators/Loader';
 import Waypoint from 'react-waypoint';
 import dateFormat from 'dateformat';
-import * as dateHelper from '../../../core/helpers/dateHelper';
+import dateHelper from '../../../core/helpers/dateHelper';
 
 const NewsList = (props) => {
   return (

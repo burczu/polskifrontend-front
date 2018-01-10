@@ -9,8 +9,8 @@ import { connect } from 'react-redux';
 import mapPublicStateToProps from '../../core/redux/mapPublicStateToProps';
 import mapPublicDispatchToProps from '../../core/redux/mapPublicDispatchToProps';
 import Message from '../../components/Indicators/Message';
-import * as settingsHelper from '../../core/helpers/settingsHelper';
-import * as dateHelper from '../../core/helpers/dateHelper';
+import settingsHelper from '../../core/helpers/settingsHelper';
+import dateHelper from '../../core/helpers/dateHelper';
 import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 class Home extends React.Component {

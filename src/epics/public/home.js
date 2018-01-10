@@ -3,7 +3,7 @@ import { ajax } from 'rxjs/observable/dom/ajax';
 import { apiUrl, getDefaultHeaders } from '../../config';
 import { getBlogsQuery } from '../../graphql/queries/blogs';
 import _ from 'lodash';
-import * as settingsHelper from '../../core/helpers/settingsHelper';
+import settingsHelper from '../../core/helpers/settingsHelper';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';

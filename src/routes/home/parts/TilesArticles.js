@@ -4,7 +4,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import styles from './TilesArticles.styl';
 import dateFormat from 'dateformat';
 import { decode } from 'he';
-import * as dateHelper from '../../../core/helpers/dateHelper';
+import dateHelper from '../../../core/helpers/dateHelper';
 import Link from '../../../components/Link/Link';
 import noImage from '../../../../public/no_image.png';
 import ReactImageFallback from 'react-image-fallback';
