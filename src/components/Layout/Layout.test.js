@@ -1,19 +1,14 @@
 /* eslint-disable */
 import React from 'react';
-import { expect, use } from 'chai';
+import { expect } from 'chai';
 import sinon from 'sinon';
-import sinonChai from 'sinon-chai';
-import { configure, shallow, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow, mount } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import App from '../App';
 import Layout from './Layout';
 import Header from '../Header/Header';
 import TopHomeLinks from './TopHomeLinks';
-
-configure({ adapter: new Adapter() });
-use(sinonChai);
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
