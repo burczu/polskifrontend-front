@@ -19,15 +19,11 @@ const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 const initialState = {
   newsState: {
-    newsList: [
-      {
-        date: '2018-01-01'
-      }
-    ]
+    newsList: [{ date: '2018-01-01' }]
   }
 };
 
-describe('Layout', () => {
+describe('Layout component', () => {
   let settingsStub;
   let dateHelperStub;
   const store = mockStore(initialState);
