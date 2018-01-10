@@ -17,7 +17,6 @@ import * as dateHelper from '../../core/helpers/dateHelper';
 class Layout extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
-    newsList: PropTypes.array,
     newsState: PropTypes.object.isRequired
   };
 
