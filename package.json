@@ -165,6 +165,22 @@
       }
     }
   },
+  "pre-commit": ["lint:staged", "test"],
+  "lint-staged": {
+    "*.{cmd,html,json,md,sh,txt,xml,yml}": [
+      "editorconfig-tools fix",
+      "git add"
+    ],
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{css,less,scss,sss}": [
+      "stylefmt",
+      "stylelint",
+      "git add"
+    ]
+  },
   "scripts": {
     "lint:js": "eslint src",
     "lint:css": "stylelint \"src/**/*.{css,less,scss,sss}\"",
