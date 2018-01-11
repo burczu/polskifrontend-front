@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { expect } from 'chai';
 import sinon from 'sinon';
-import { shallow, mount } from 'enzyme';
+import Enzyme from 'enzyme';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Layout from './Layout';
@@ -52,7 +52,7 @@ describe('Layout component', () => {
   });
 
   it('renders children correctly', () => {
-    const wrapper = shallow(
+    const wrapper = Enzyme.shallow(
       <Layout>
         <div className="child" />
       </Layout>,
@@ -63,7 +63,7 @@ describe('Layout component', () => {
   });
 
   it('renders Header component', () => {
-    const wrapper = mount(
+    const wrapper = Enzyme.mount(
       <Layout newsState={initialState.newsState}>
         <div>Test</div>
       </Layout>,
@@ -74,7 +74,7 @@ describe('Layout component', () => {
   });
 
   it('renders TopHomeLinks component', () => {
-    const wrapper = mount(
+    const wrapper = Enzyme.mount(
       <Layout newsState={initialState.newsState}>
         Test...
       </Layout>,
@@ -85,7 +85,7 @@ describe('Layout component', () => {
   });
 
   it('renders TopHomePanel component', () => {
-    const wrapper = mount(
+    const wrapper = Enzyme.mount(
       <Layout newsState={initialState.newsState}>
         Test...
       </Layout>,
@@ -96,7 +96,7 @@ describe('Layout component', () => {
   });
 
   it('renders Footer component', () => {
-    const wrapper = mount(
+    const wrapper = Enzyme.mount(
       <Layout newsState={initialState.newsState}>
         Test...
       </Layout>,
@@ -107,7 +107,7 @@ describe('Layout component', () => {
   });
 
   it('renders Cookie component', () => {
-    const wrapper = mount(
+    const wrapper = Enzyme.mount(
       <Layout newsState={initialState.newsState}>
         Test...
       </Layout>,
@@ -118,7 +118,7 @@ describe('Layout component', () => {
   });
 
   it('pass correct value to the TopHomeLinks component', () => {
-    const wrapper = mount(
+    const wrapper = Enzyme.mount(
       <Layout newsState={initialState.newsState}>
         Test...
       </Layout>,
@@ -126,25 +126,5 @@ describe('Layout component', () => {
     );
 
     expect(wrapper.find(TopHomeLinks).prop('newNewsCount')).to.eql(1);
-  });
-
-  describe('when called with no children', () => {
-    let consoleStub;
-    beforeEach(() => {
-      consoleStub = sinon.stub(console, 'error');
-    });
-
-    afterEach(() => {
-      consoleStub.restore();
-    });
-
-    it('calls console.error function', () => {
-      mount(
-        <Layout newsState={initialState.newsState} />,
-        options
-      );
-
-      expect(console.error).to.be.calledOnce;
-    });
   });
 });

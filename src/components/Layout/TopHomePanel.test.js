@@ -2,7 +2,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import PropTypes from 'prop-types';
-import { mount } from 'enzyme/build/index';
+import Enzyme from 'enzyme/build/index';
 import TopHomePanel from './TopHomePanel';
 import Link from '../Link/Link';
 import RetinaImage from 'react-retina-image';
@@ -18,7 +18,7 @@ describe('TopHomePanel component', () => {
   };
 
   it('has a link pointing to the home page', () => {
-    const wrapper = mount(
+    const wrapper = Enzyme.mount(
       <TopHomePanel />,
       options
     );
@@ -27,7 +27,7 @@ describe('TopHomePanel component', () => {
   });
 
   it('renders a RetinaImage component', () => {
-    const wrapper = mount(
+    const wrapper = Enzyme.mount(
       <TopHomePanel />,
       options
     );

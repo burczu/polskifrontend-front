@@ -5,19 +5,9 @@ import Enzyme from 'enzyme';
 import TopHomeLinks from './TopHomeLinks';
 import PropTypes from 'prop-types';
 import { mount } from 'enzyme/build/index';
-import sinon from 'sinon';
 import Link from '../Link/Link';
 
 describe('TopHomeLinks component', () => {
-  let consoleStub;
-  beforeEach(() => {
-    consoleStub = sinon.stub(console, 'error');
-  });
-
-  afterEach(() => {
-    consoleStub.restore();
-  });
-
   const options = {
     context: {
       insertCss: () => {}
@@ -36,22 +26,13 @@ describe('TopHomeLinks component', () => {
     expect(wrapper.find('div.list__info')).to.have.length(1);
   });
 
-  it('shows no news count indincator when news count is equal to 0', () => {
+  it('shows no news count indicator when news count is equal to 0', () => {
     const wrapper = Enzyme.mount(
       <TopHomeLinks newNewsCount={0}/>,
       options
     );
 
     expect(wrapper.find('div.list__info')).to.have.length(0);
-  });
-
-  it('calls console.error function when no "currentPath" provided', () => {
-    mount(
-      <TopHomeLinks />,
-      options
-    );
-
-    expect(console.error).to.be.calledOnce;
   });
 
   it('has link which points to /aktualnosci path', () => {
