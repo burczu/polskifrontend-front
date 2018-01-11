@@ -18,7 +18,7 @@ const options = {
 
 describe('CookieInfo component', () => {
   it('has initial state property "shouldBeClosed" set to "false"', () => {
-    const wrapper = Enzyme.mount(
+    const wrapper = Enzyme.shallow(
       <CookieInfo />,
       options
     );
@@ -37,7 +37,7 @@ describe('CookieInfo component', () => {
     });
 
     it('sets up cookie', () => {
-      const wrapper = Enzyme.mount(
+      const wrapper = Enzyme.shallow(
         <CookieInfo />,
         options
       );
@@ -47,7 +47,7 @@ describe('CookieInfo component', () => {
     });
 
     it('change the inner state value', () => {
-      const wrapper = Enzyme.mount(
+      const wrapper = Enzyme.shallow(
         <CookieInfo />,
         options
       );
@@ -69,7 +69,7 @@ describe('CookieInfo component', () => {
     });
 
     it('has initial state property "shouldBeClosed" set to the value taken from cookie', () => {
-      const wrapper = Enzyme.mount(
+      const wrapper = Enzyme.shallow(
         <CookieInfo />,
         options
       );
