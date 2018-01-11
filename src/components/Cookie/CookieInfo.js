@@ -1,23 +1,21 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import styles from './CookieInfo.styl';
-import * as cookies from '../../core/helpers/cookieHelper';
+import cookies from '../../core/helpers/cookieHelper';
 
-class CookieInfo extends React.Component {
+export class CookieInfo extends React.Component {
   constructor(props) {
     super(props);
     const shouldBeClosed = cookies.get('cookie-accepted');
     this.state = { shouldBeClosed: shouldBeClosed || false };
   }
 
-  onOkClick(event) {
-    event.preventDefault();
-
+  onOkClick = () => {
     cookies.set(true, 'cookie-accepted', { path: '/', expires: new Date(2050, 1, 1) });
     this.setState({
       shouldBeClosed: true
     });
-  }
+  };
 
   render() {
     const containerClass = `${styles.container} ${this.state.shouldBeClosed ? styles['container--invisible'] : ''}`;

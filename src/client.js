@@ -20,10 +20,10 @@ import App from './components/App';
 import configureStore from './store/configureStore';
 import { updateMeta } from './core/DOMUtils';
 import { ErrorReporter, deepForceUpdate } from './core/devUtils';
-import { setUpCookie } from './core/helpers/cookieHelper';
+import cookies from './core/helpers/cookieHelper';
 import * as constants from './constants';
 
-setUpCookie();
+cookies.setUpCookie();
 
 const store = configureStore(window.APP_STATE, { history });
 

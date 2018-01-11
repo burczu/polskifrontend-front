@@ -1,4 +1,4 @@
-import * as cookies from './cookieHelper';
+import cookies from './cookieHelper';
 
 const cookieName = 'PL_FRONT_END_USER_SETTINGS';
 const initialSettings = {

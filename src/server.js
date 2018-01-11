@@ -19,7 +19,7 @@ import configureStore from './store/configureStore';
 import { port, apiUrl, getDefaultHeaders } from './config';
 import fetch from './core/fetch';
 import { Helmet } from 'react-helmet';
-import * as cookies from './core/helpers/cookieHelper';
+import cookies from './core/helpers/cookieHelper';
 
 const app = express();
 
