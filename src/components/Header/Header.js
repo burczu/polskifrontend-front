@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import RetinaImage from 'react-retina-image';
@@ -6,36 +7,31 @@ import Link from '../Link/Link';
 import logo from '../../../public/polskifrontend_logo_black.png';
 import logo2 from '../../../public/polskifrontend_black@2x.png';
 
-/* eslint-disable no-undef */
+export class Header extends React.Component {
+  state = { scrolled: false };
 
-class Header extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { scrolled: false };
-  }
-
-  componentDidMount() {
+  componentDidMount = () => {
     if (window) {
-      window.addEventListener('scroll', this.handleScroll.bind(this));
+      window.addEventListener('scroll', (event) => this.handleScroll(event));
     }
-  }
+  };
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     if (window) {
-      window.removeEventListener('scroll', this.handleScroll.bind(this));
+      window.removeEventListener('scroll', (event) => this.handleScroll(event));
     }
-  }
+  };
 
-  handleScroll(event) {
+  handleScroll = (event) => {
     // how pixels is to top
     const target = event.target || event.srcElement;
     const scrollTop = target.documentElement.scrollTop || target.body.scrollTop || 0;
     const scrolled = scrollTop > 250;
 
     this.setState({ scrolled });
-  }
+  };
 
-  render() {
+  render = () => {
     const containerStyle = `${styles.header} ${this.state.scrolled ? styles['header--scrolled'] : ''}`;
 
     return (
@@ -48,7 +44,7 @@ class Header extends React.Component {
         </Link>
       </div>
     );
-  }
+  };
 }
 
 export default withStyles(styles)(Header);
