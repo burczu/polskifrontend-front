@@ -6,7 +6,6 @@ import { Header } from './Header';
 import PropTypes from 'prop-types';
 import sinon from 'sinon';
 import Link from '../Link/Link';
-import { mount } from 'enzyme/build/index';
 import RetinaImage from 'react-retina-image';
 
 const options = {
@@ -96,7 +95,7 @@ describe('Header component', () => {
   });
 
   it('has link which points to the home page', () => {
-    const wrapper = mount(
+    const wrapper = Enzyme.mount(
       <Header />,
       options
     );
