@@ -4,7 +4,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './Loader.styl';
 import image from '../../../public/30.svg';
 
-export const Loader = props => {
+export const Loader = (props) => {
   const loader = (
     <img className={style['container__loader']} src={image} />
   );

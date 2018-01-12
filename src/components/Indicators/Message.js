@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './Message.styl';
 
-class Message extends React.Component {
+export class Message extends React.Component {
   static propTypes = {
     isVisible: PropTypes.bool.isRequired,
     message: PropTypes.string.isRequired,
@@ -12,19 +12,11 @@ class Message extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { isMessageVisible: false };
+    this.state = { isMessageVisible: this.props.isVisible };
     this.currentTimout = null;
   }
 
-  componentDidMount() {
-    if (this.props.isVisible) {
-      this.setState({ // eslint-disable-line
-        isMessageVisible: this.props.isVisible
-      });
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate = (prevProps, prevState) => {
     const { isMessageVisible } = this.state;
     const { isVisible } = this.props;
 
@@ -33,7 +25,7 @@ class Message extends React.Component {
     }
 
     if (prevProps.isVisible !== isVisible) {
-      this.setState({ // eslint-disable-line
+      this.setState({
         isMessageVisible: isVisible
       });
     }
@@ -45,9 +37,9 @@ class Message extends React.Component {
         });
       }, 6000);
     }
-  }
+  };
 
-  render() {
+  render = () => {
     const { type, message } = this.props;
     let classNames = style.container;
 

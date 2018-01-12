@@ -2,17 +2,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import { Loader } from './Loader';
-import PropTypes from 'prop-types';
 import Enzyme from 'enzyme';
-
-const options = {
-  context: {
-    insertCss: () => {}
-  },
-  childContextTypes: {
-    insertCss: PropTypes.func.isRequired
-  }
-};
 
 describe('Loader component', () => {
   describe('if isLoading attribute is set to "true"', () => {
