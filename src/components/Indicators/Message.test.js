@@ -58,7 +58,7 @@ describe('Message component', () => {
       expect(wrapper.state().isMessageVisible).to.be.false;
     });
 
-    it('it doesn\'t change the stata prop "isMessageVisible" back to "false" before 6sek', () => {
+    it('it doesn\'t change the state prop "isMessageVisible" back to "false" before 6sek', () => {
       const wrapper = Enzyme.shallow(
         <Message isVisible={false} message="Test" type="info" />
       );

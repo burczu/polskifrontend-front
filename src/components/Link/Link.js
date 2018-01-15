@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import history from '../../core/history';
 
-function isLeftClickEvent(event) {
+export const isLeftClickEvent = (event) => {
   return event.button === 0;
-}
+};
 
-function isModifiedEvent(event) {
+export const isModifiedEvent = (event) => {
   return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
-}
+};
 
 class Link extends React.Component {
   static propTypes = {

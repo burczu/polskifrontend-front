@@ -723,7 +723,7 @@ babel-plugin-lodash@^3.2.11:
     lodash "^4.17.4"
     require-package-name "^2.0.1"
 
-babel-plugin-rewire@^1.0.0:
+babel-plugin-rewire@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-rewire/-/babel-plugin-rewire-1.1.0.tgz#a6b966d9d8c06c03d95dcda2eec4e2521519549b"
 
