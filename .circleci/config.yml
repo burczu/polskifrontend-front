@@ -28,7 +28,7 @@ jobs:
           name: config
           command: 'cp ~/repo/src/config.example.js ~/repo/src/config.js'
 
-      # Download and cache dependencies
+      # download and cache dependencies
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
@@ -53,6 +53,6 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
-      # - run: yarn test
+      - run: yarn test
 
 
