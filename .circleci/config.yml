@@ -19,6 +19,7 @@ jobs:
     steps:
       - checkout
 
+      # configs should be taken from separate private repo
       - run:
           name: config
           command: 'cp ~/repo/src/config.example.js ~/repo/src/config.js'
