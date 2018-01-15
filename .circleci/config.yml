@@ -31,8 +31,12 @@ jobs:
           command: 'yarn install'
 
       - run:
+          name: lint
+          command: 'yarn lint'
+
+      - run:
           name: build
-          command: 'yarn build'
+          command: 'yarn build --release'
 
       - save_cache:
           paths:
