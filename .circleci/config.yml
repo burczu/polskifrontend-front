@@ -21,7 +21,7 @@ jobs:
 
       - run:
           name: config
-          command: 'cp /src/config.example.js /src/config.js'
+          command: 'cp ~/repo/src/config.example.js ~/repo/src/config.js'
 
       # Download and cache dependencies
       - restore_cache:
