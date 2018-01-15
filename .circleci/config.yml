@@ -19,6 +19,10 @@ jobs:
     steps:
       - checkout
 
+      - run:
+          name: config
+          command: 'cp /src/config.example.js /src/config.js'
+
       # Download and cache dependencies
       - restore_cache:
           keys:
