@@ -27,12 +27,12 @@ jobs:
           - v1-dependencies-
 
       - run:
-        name: install
-        command: 'yarn install'
+          name: install
+          command: 'yarn install'
 
       - run:
-        name: build
-        command: 'yarn build'
+          name: build
+          command: 'yarn build'
 
       - save_cache:
           paths:
