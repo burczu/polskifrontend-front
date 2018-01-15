@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './Page.styl';
 
-class Page extends React.Component {
+export class Page extends React.Component {
   static propTypes = {
     html: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired
