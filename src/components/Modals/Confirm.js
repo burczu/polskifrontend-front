@@ -4,7 +4,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import styles from './Confirm.styl';
 import ResponsivePanel from '../../components/Responsive/ResponsivePanel';
 
-const Confirm = props => {
+export const Confirm = props => {
   const containerClass = `${styles.container} ${props.isVisible ? styles['container--visible'] : ''}`;
   const header = props.header ? props.header : 'Prośba o potwierdzenie';
 
