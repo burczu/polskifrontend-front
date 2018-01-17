@@ -119,4 +119,34 @@ describe('Link component', () => {
       expect(historyPushSpy.withArgs('test')).to.be.calledOnce;
     });
   });
+
+  describe('has also functions:', () => {
+    it('"isLeftClickEvent" returns "true" i button key is 0', () => {
+      expect(isLeftClickEvent({ button: 0 })).to.be.eql(true);
+    });
+
+    it('"isLeftClickEvent" returns "false" i button key is different than 0', () => {
+      expect(isLeftClickEvent({ button: 10 })).to.be.eql(false);
+    });
+
+    it('"isModifiedEvent" returns "true" when event has "metaKey"', () => {
+      expect(isModifiedEvent({ metaKey: true })).to.be.eql(true);
+    });
+
+    it('"isModifiedEvent" returns "true" when event has "altKey"', () => {
+      expect(isModifiedEvent({ altKey: true })).to.be.eql(true);
+    });
+
+    it('"isModifiedEvent" returns "true" when event has "ctrlKey"', () => {
+      expect(isModifiedEvent({ ctrlKey: true })).to.be.eql(true);
+    });
+
+    it('"isModifiedEvent" returns "true" when event has "shiftKey"', () => {
+      expect(isModifiedEvent({ shiftKey: true })).to.be.eql(true);
+    });
+
+    it('"isModifiedEvent" returns "false" when event has no modified keys', () => {
+      expect(isModifiedEvent({ })).to.be.eql(false);
+    });
+  });
 });

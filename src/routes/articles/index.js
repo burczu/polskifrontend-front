@@ -15,7 +15,7 @@ export default {
       // server side loading
       const newState = await getArticlesInitialState(slug);
       context.store.getState().publicState.articlesState = { ...newState, dataLoaded: true };
-    } else if (state.articleLoaded === false) {
+    } else if (state.dataLoaded === false) {
       // client side loading
       context.store.dispatch(actions.articlesArticleGet(slug));
     }
