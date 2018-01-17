@@ -17,7 +17,7 @@ export const ResponsivePanel = (props) => {
           />
         </h2>
         <div className={style.wrapper}>
-          {props.description ? <p className={style['wrapper__description']}>{props.description}</p> : null}
+          <p className={style['wrapper__description']}>{props.description}</p>
           {props.children}
         </div>
       </div>
