@@ -25,7 +25,7 @@ export const ResponsivePanelHeader = (props) => {
   return (
     <div>
       {image}
-      {props.header}
+      <span>{props.header}</span>
     </div>
   );
 };
