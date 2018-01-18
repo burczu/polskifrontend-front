@@ -15,7 +15,6 @@ import { analytics } from '../config';
 class Html extends React.Component {
   static propTypes = {
     children: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
     helmet: PropTypes.object.isRequired,
     scripts: PropTypes.arrayOf(PropTypes.string.isRequired),
     // eslint-disable-next-line react/forbid-prop-types
