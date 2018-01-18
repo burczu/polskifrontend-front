@@ -1,7 +1,6 @@
 /* eslint-disable */
 import React from 'react';
 import { expect } from 'chai';
-import sinon from 'sinon';
 import Html from './Html';
 import Enzyme from 'enzyme';
 import serialize from 'serialize-javascript';
