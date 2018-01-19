@@ -18,7 +18,6 @@ import { createPath } from 'history/PathUtils';
 import history from './core/history';
 import App from './components/App';
 import configureStore from './store/configureStore';
-import { updateMeta } from './core/DOMUtils';
 import { ErrorReporter, deepForceUpdate } from './core/devUtils';
 import cookies from './core/helpers/cookieHelper';
 import * as constants from './constants';
@@ -53,16 +52,6 @@ let onRenderComplete = function initialRenderComplete() {
   const elem = document.getElementById('css');
   if (elem) elem.parentNode.removeChild(elem);
   onRenderComplete = function renderComplete(route, location) {
-    document.title = route.title;
-
-    updateMeta('description', route.description);
-    // Update necessary tags in <head> at runtime here, ie:
-    // updateMeta('keywords', route.keywords);
-    // updateCustomMeta('og:url', route.canonicalUrl);
-    // updateCustomMeta('og:image', route.imageUrl);
-    // updateLink('canonical', route.canonicalUrl);
-    // etc.
-
     let scrollX = 0;
     let scrollY = 0;
     const pos = scrollPositionsHistory[location.key];
