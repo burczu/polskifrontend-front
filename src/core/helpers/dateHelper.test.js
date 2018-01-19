@@ -29,8 +29,6 @@ describe('dateHelper', () => {
     expect(dateHelper.isThisWeek(previousWeekDate)).to.be.false;
   });
 
-
-
   it('throws exception if given date is later than now', () => {
     const laterDate = Date.now() + (oneDay * 5);
     const expectedMessage = 'Given date should be earlier than now';
