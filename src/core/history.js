@@ -11,11 +11,6 @@
 
 import createBrowserHistory from 'history/createBrowserHistory';
 
-// mocked object for the test purpose
-let history = {
-  push: () => 'test'
-};
-
 // Navigation manager, e.g. history.push('/home')
 // https://github.com/mjackson/history
 if (process.env.BROWSER) {

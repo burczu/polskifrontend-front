@@ -4,7 +4,6 @@ import { expect } from 'chai';
 import Link, { isModifiedEvent, isLeftClickEvent, __RewireAPI__ as rewire } from './Link';
 import Enzyme from 'enzyme';
 import sinon from 'sinon';
-import history from '../../core/history';
 
 describe('Link component', () => {
   it('sets "href" property based on the "to" prop', () => {
@@ -27,6 +26,12 @@ describe('Link component', () => {
     let eventPreventSpy;
 
     beforeEach(() => {
+      process.env.BROWSER = 'BROWSER';
+      const history = require('../../core/history').default;
+      if (!history.push) {
+        history.push = () => 'test';
+      }
+
       clickSpy = sinon.spy(handlers, 'click');
 
       isModifiedSpy = sinon.spy(isModifiedEvent);
@@ -40,6 +45,8 @@ describe('Link component', () => {
     });
 
     afterEach(() => {
+      process.env.BROWSER = undefined;
+
       clickSpy.restore();
       isModifiedRevert();
       isLeftClickRevert();
