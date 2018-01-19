@@ -30,6 +30,7 @@ module.exports = {
     '!src/client.js',
     '!src/server.js',
     '!src/router.js',
+    '!src/core/fetch/**/*',
     '!**/node_modules/**',
     '!**/vendor/**',
   ],

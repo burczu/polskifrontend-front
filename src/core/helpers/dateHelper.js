@@ -3,9 +3,19 @@ const oneWeek = oneDay * 7;
 
 export default {
   isToday: (date) => {
-    return (Date.now() - date) < oneDay;
+    const now = Date.now();
+    if (now < date) {
+      throw new Error('Given date should be earlier than now');
+    }
+
+    return (now - date) < oneDay;
   },
   isThisWeek: (date) => {
-    return (Date.now() - date) < oneWeek;
+    const now = Date.now();
+    if (now < date) {
+      throw new Error('Given date should be earlier than now');
+    }
+
+    return now - date < oneWeek;
   }
 };

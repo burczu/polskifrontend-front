@@ -2,10 +2,13 @@
 import React from 'react';
 import { expect } from 'chai';
 import Link, { isModifiedEvent, isLeftClickEvent, __RewireAPI__ as rewire } from './Link';
+import history, { __RewireAPI__ as historyRewire } from '../../core/history';
 import Enzyme from 'enzyme';
 import sinon from 'sinon';
 
 describe('Link component', () => {
+  process.env.BROWSER = 'BROWSER';
+
   it('sets "href" property based on the "to" prop', () => {
     const wrapper = Enzyme.shallow(
       <Link to="test">Test</Link>
@@ -15,6 +18,7 @@ describe('Link component', () => {
   });
 
   describe('if clicked', () => {
+    history.push = () => {};
     const handlers = { click: () => {} };
     const event = { preventDefault: () => {} };
     let clickSpy;
@@ -23,15 +27,10 @@ describe('Link component', () => {
     let isLeftClickSpy;
     let isLeftClickRevert;
     let historyPushSpy;
+    let historyPushRevert;
     let eventPreventSpy;
 
     beforeEach(() => {
-      process.env.BROWSER = 'BROWSER';
-      const history = require('../../core/history').default;
-      if (!history.push) {
-        history.push = () => 'test';
-      }
-
       clickSpy = sinon.spy(handlers, 'click');
 
       isModifiedSpy = sinon.spy(isModifiedEvent);
@@ -41,16 +40,16 @@ describe('Link component', () => {
       isLeftClickRevert = rewire.__set__('isLeftClickEvent', isLeftClickSpy);
 
       historyPushSpy = sinon.spy(history, 'push');
+      historyPushRevert = historyRewire.__set__('push', historyPushSpy);
       eventPreventSpy = sinon.spy(event, 'preventDefault');
     });
 
     afterEach(() => {
-      process.env.BROWSER = undefined;
-
       clickSpy.restore();
       isModifiedRevert();
       isLeftClickRevert();
       historyPushSpy.restore();
+      historyPushRevert();
       eventPreventSpy.restore();
     });
 
