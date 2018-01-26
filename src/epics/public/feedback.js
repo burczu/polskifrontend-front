@@ -1,5 +1,5 @@
 import * as constants from '../../constants';
-import * as validators from '../../core/helpers/validators';
+import validators from '../../core/helpers/validators';
 import { ajax } from 'rxjs/observable/dom/ajax';
 import { apiUrl, getDefaultHeaders } from '../../config';
 import 'rxjs/add/observable/of';
