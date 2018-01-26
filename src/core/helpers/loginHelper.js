@@ -2,14 +2,14 @@ import cookies from './cookieHelper';
 
 const cookieName = 'PL_FRONT_END';
 
-export function saveLoginToken(token) {
-  cookies.set(token, cookieName);
-}
-
-export function getLoginToken() {
-  return cookies.get(cookieName);
-}
-
-export function clearLoginToken() {
-  cookies.remove(cookieName);
-}
+export default {
+  saveLoginToken: (token) => {
+    cookies.set(token, cookieName);
+  },
+  getLoginToken: () => {
+    return cookies.get(cookieName);
+  },
+  clearLoginToken: () => {
+    cookies.remove(cookieName);
+  }
+};

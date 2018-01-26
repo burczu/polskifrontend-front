@@ -1,6 +1,6 @@
 import * as constants from '../../constants';
 import { ajax } from 'rxjs/observable/dom/ajax';
-import * as loginHelper from '../../core/helpers/loginHelper';
+import loginHelper from '../../core/helpers/loginHelper';
 import { apiUrl, getDefaultHeaders } from '../../config';
 import sha1 from 'sha1';
 import 'rxjs/add/observable/of';

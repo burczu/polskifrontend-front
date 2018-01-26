@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { expect } from 'chai';
 import sinon from 'sinon';
-import * as loginHelper from './loginHelper';
+import loginHelper from './loginHelper';
 import cookies from './cookieHelper';
 
 describe('loginHelper', () => {
