@@ -8,7 +8,11 @@ export default {
     return pattern.test(url);
   },
   isRequired: (value) => {
-    return value.length > 3;
+    if (typeof value === 'string') {
+      return value.length > 3;
+    }
+
+    return false;
   },
   isEmailValid: (value) => {
     const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[a-zA-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)\b/;
