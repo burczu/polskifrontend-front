@@ -31,6 +31,8 @@ module.exports = {
     '!src/server.js',
     '!src/router.js',
     '!src/core/fetch/**/*',
+    '!src/actions/actions.js',
+    '!src/epics/index.js',
     '!**/node_modules/**',
     '!**/vendor/**',
   ],

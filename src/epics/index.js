@@ -1,4 +1,5 @@
 import { combineEpics } from 'redux-observable';
+import { ajax } from 'rxjs/observable/dom/ajax';
 import {
   getBlogListEpic,
   getBlogListRequestEpic,
@@ -20,7 +21,7 @@ import {
 import { getNewsPageEpic } from './public/news';
 import { articlesGetArticleEpic } from './public/articles';
 
-const rootEpic = combineEpics(
+const rootEpic = (...args) => combineEpics(
   getBlogListEpic,
   getBlogListRequestEpic,
   switchToListViewEpic,
@@ -37,6 +38,6 @@ const rootEpic = combineEpics(
   sendFeedbackEpic,
   getNewsPageEpic,
   articlesGetArticleEpic
-);
+)(...args, { ajax });
 
 export default rootEpic;
