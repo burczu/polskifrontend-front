@@ -2,6 +2,7 @@ import * as constants from '../../constants';
 import validators from '../../core/helpers/validators';
 import { ajax } from 'rxjs/observable/dom/ajax';
 import { apiUrl, getDefaultHeaders } from '../../config';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
@@ -41,7 +42,7 @@ export const feedbackEmailChangedEpic = (action$) => {
     });
 };
 
-export const sendFeedbackEpic = (action$) => {
+export const feedbackSendEpic = (action$) => {
   return action$.ofType(constants.FEEDBACK_SEND)
     .mergeMap((action) => {
       const { email, feedback } = action.payload;

@@ -5,19 +5,23 @@ import {
   getBlogListRequestEpic,
   switchToListViewEpic,
   switchToListViewRequestEpic,
-  addLinkToClickedEpic } from './public/home';
+  addLinkToClickedEpic
+} from './public/home';
 import {
   userChangeEpic,
   passwordChangeEpic,
-  loginEpic } from './public/login';
+  loginEpic
+} from './public/login';
 import {
   urlChangedEpic,
   emailChangedEpic,
-  sendBlogRequestEpic } from './public/submit';
+  sendBlogRequestEpic
+} from './public/submit';
 import {
   feedbackTextChangedEpic,
   feedbackEmailChangedEpic,
-  sendFeedbackEpic } from './public/feedback';
+  feedbackSendEpic
+} from './public/feedback';
 import { getNewsPageEpic } from './public/news';
 import { articlesGetArticleEpic } from './public/articles';
 
@@ -35,7 +39,7 @@ const rootEpic = (...args) => combineEpics(
   sendBlogRequestEpic,
   feedbackTextChangedEpic,
   feedbackEmailChangedEpic,
-  sendFeedbackEpic,
+  feedbackSendEpic,
   getNewsPageEpic,
   articlesGetArticleEpic
 )(...args, { ajax });
