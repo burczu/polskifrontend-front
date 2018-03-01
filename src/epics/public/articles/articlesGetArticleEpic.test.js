@@ -4,10 +4,8 @@ import { ActionsObservable } from 'redux-observable';
 import { Observable } from 'rxjs/Observable';
 import { articlesGetArticleEpic } from './articlesGetArticleEpic';
 import * as constants from '../../../constants';
-
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/toArray';
 import 'rxjs/add/operator/toPromise';
 
 describe('articlesGetArticleEpic', () => {
@@ -34,7 +32,7 @@ describe('articlesGetArticleEpic', () => {
     });
   });
 
-  describe('in case of some communication errors', () => {
+  describe('if errors has thrown', () => {
     const error = 'error';
     const ajax = () => Observable.throw(error);
 
@@ -45,22 +43,6 @@ describe('articlesGetArticleEpic', () => {
         .toPromise()
         .then(outputAction => {
           expect(outputAction).to.be.eql(expectedAction);
-        })
-    });
-  });
-
-  describe('in case of errors returned from server', () => {
-    const error = 'error';
-    const errorArticleData = { response: { errors: [ { message: error } ] } };
-    const ajax = () => Observable.of(errorArticleData);
-
-    const expectedAction = { type: constants.ARTICLES_ARTICLE_GET_ERROR, payload: { message: error } };
-
-    it('returns correct error action with correct error message', () => {
-      return articlesGetArticleEpic(action$, {}, { ajax })
-        .toPromise()
-        .then(outputActions => {
-          expect(outputActions).to.be.eql(expectedAction);
         })
     });
   });

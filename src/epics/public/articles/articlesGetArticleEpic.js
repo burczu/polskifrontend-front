@@ -16,20 +16,10 @@ export const articlesGetArticleEpic = (action$, store, { ajax }) => {
       const headers = getDefaultHeaders();
 
       return ajax({ url, method: 'POST', body, headers })
-        .map(responseData => {
-          const { errors } = responseData.response;
-          if (errors && errors.length > 0) {
-            return {
-              type: constants.ARTICLES_ARTICLE_GET_ERROR,
-              payload: { message: errors[0].message }
-            };
-          }
-
-          return {
-            type: constants.ARTICLES_ARTICLE_GET_SUCCESS,
-            payload: { article: responseData.response.data.articleBySlug }
-          };
-        })
+        .map(responseData => ({
+          type: constants.ARTICLES_ARTICLE_GET_SUCCESS,
+          payload: { article: responseData.response.data.articleBySlug }
+        }))
         .takeUntil(action$.ofType(constants.GLOBALS_ROUTE_CHANGED))
         .catch(error => Observable.of({
           type: constants.ARTICLES_ARTICLE_GET_ERROR,

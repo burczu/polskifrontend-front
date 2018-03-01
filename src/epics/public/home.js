@@ -4,6 +4,7 @@ import { apiUrl, getDefaultHeaders } from '../../config';
 import { getBlogsQuery } from '../../graphql/queries/blogs';
 import _ from 'lodash';
 import settingsHelper from '../../core/helpers/settingsHelper';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
@@ -126,7 +127,7 @@ export const switchToListViewRequestEpic = (action$, { getState }) => {
           };
         })
         .takeUntil(action$.ofType(constants.GLOBALS_ROUTE_CHANGED))
-        .catch(error => ({
+        .catch(error => Observable.of({
           type: constants.HOME_ARTICLE_LIST_GET_ERROR,
           payload: {
             error
