@@ -2,8 +2,8 @@
 import { expect } from 'chai';
 import { ActionsObservable } from 'redux-observable';
 import { Observable } from 'rxjs/Observable';
-import { articlesGetArticleEpic } from './articles';
-import * as constants from '../../constants';
+import { articlesGetArticleEpic } from './articlesGetArticleEpic';
+import * as constants from '../../../constants';
 
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/observable/of';

@@ -1,11 +1,11 @@
-import * as constants from '../../constants';
-import { apiUrl, getDefaultHeaders } from '../../config';
+import * as constants from '../../../constants';
+import { apiUrl, getDefaultHeaders } from '../../../config';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/takeUntil';
-import { getArticleBySlugQuery } from '../../graphql/queries/articles';
+import { getArticleBySlugQuery } from '../../../graphql/queries/articles';
 
 export const articlesGetArticleEpic = (action$, store, { ajax }) => {
   return action$.ofType(constants.ARTICLES_ARTICLE_GET)
@@ -21,25 +21,19 @@ export const articlesGetArticleEpic = (action$, store, { ajax }) => {
           if (errors && errors.length > 0) {
             return {
               type: constants.ARTICLES_ARTICLE_GET_ERROR,
-              payload: {
-                message: errors[0].message
-              }
+              payload: { message: errors[0].message }
             };
           }
 
           return {
             type: constants.ARTICLES_ARTICLE_GET_SUCCESS,
-            payload: {
-              article: responseData.response.data.articleBySlug
-            }
+            payload: { article: responseData.response.data.articleBySlug }
           };
         })
         .takeUntil(action$.ofType(constants.GLOBALS_ROUTE_CHANGED))
-        .catch(error => Observable.of({ // eslint-disable-line
+        .catch(error => Observable.of({
           type: constants.ARTICLES_ARTICLE_GET_ERROR,
-          payload: {
-            message: error
-          }
+          payload: { message: error }
         }));
     });
 };

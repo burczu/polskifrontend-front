@@ -1,5 +1,9 @@
 import { combineEpics } from 'redux-observable';
 import { ajax } from 'rxjs/observable/dom/ajax';
+import { articlesGetArticleEpic } from './public/articles/articlesGetArticleEpic';
+import { feedbackEmailChangedEpic } from './public/feedback/feedbackEmailChangedEpic';
+import { feedbackTextChangedEpic } from './public/feedback/feedbackTextChangedEpic';
+import { feedbackSendEpic } from './public/feedback/feedbackSendEpic';
 import {
   getBlogListEpic,
   getBlogListRequestEpic,
@@ -17,13 +21,7 @@ import {
   emailChangedEpic,
   sendBlogRequestEpic
 } from './public/submit';
-import {
-  feedbackTextChangedEpic,
-  feedbackEmailChangedEpic,
-  feedbackSendEpic
-} from './public/feedback';
 import { getNewsPageEpic } from './public/news';
-import { articlesGetArticleEpic } from './public/articles';
 
 const rootEpic = (...args) => combineEpics(
   getBlogListEpic,
