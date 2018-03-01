@@ -1,17 +1,17 @@
 import * as constants from '../../constants';
 
-export function homeBlogListGet(page) {
+export function homeBlogListGetRequest(page) {
   return {
-    type: constants.HOME_BLOG_LIST_GET,
+    type: constants.HOME_BLOG_LIST_GET_REQUEST,
     payload: {
       page
     }
   };
 }
 
-export function homeArticleListGet(page) {
+export function homeArticleListGetRequest(page) {
   return {
-    type: constants.HOME_ARTICLE_LIST_GET,
+    type: constants.HOME_ARTICLE_LIST_GET_REQUEST,
     payload: {
       page
     }

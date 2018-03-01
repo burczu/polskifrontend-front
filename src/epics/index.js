@@ -4,13 +4,11 @@ import { articlesGetArticleEpic } from './public/articles/articlesGetArticleEpic
 import { feedbackEmailChangedEpic } from './public/feedback/feedbackEmailChangedEpic';
 import { feedbackTextChangedEpic } from './public/feedback/feedbackTextChangedEpic';
 import { feedbackSendEpic } from './public/feedback/feedbackSendEpic';
-import {
-  getBlogListEpic,
-  getBlogListRequestEpic,
-  switchToListViewEpic,
-  switchToListViewRequestEpic,
-  addLinkToClickedEpic
-} from './public/home';
+import { homeArticlesListGetEpic } from './public/home/homeArticlesListGetEpic';
+import { homeArticlesListGetRequestEpic } from './public/home/homeArticlesListGetRequestEpic';
+import { homeBlogListGetEpic } from './public/home/homeBlogListGetEpic';
+import { homeBlogListGetRequestEpic } from './public/home/homeBlogListGetRequestEpic';
+import { homeLinkToClickedAddEpic } from './public/home/homeLinkToClickedAddEpic';
 import {
   userChangeEpic,
   passwordChangeEpic,
@@ -24,22 +22,22 @@ import {
 import { getNewsPageEpic } from './public/news';
 
 const rootEpic = (...args) => combineEpics(
-  getBlogListEpic,
-  getBlogListRequestEpic,
-  switchToListViewEpic,
-  switchToListViewRequestEpic,
-  addLinkToClickedEpic,
+  articlesGetArticleEpic,
+  feedbackTextChangedEpic,
+  feedbackEmailChangedEpic,
+  feedbackSendEpic,
+  homeArticlesListGetEpic,
+  homeArticlesListGetRequestEpic,
+  homeBlogListGetEpic,
+  homeBlogListGetRequestEpic,
+  homeLinkToClickedAddEpic,
   userChangeEpic,
   passwordChangeEpic,
   loginEpic,
   urlChangedEpic,
   emailChangedEpic,
   sendBlogRequestEpic,
-  feedbackTextChangedEpic,
-  feedbackEmailChangedEpic,
-  feedbackSendEpic,
-  getNewsPageEpic,
-  articlesGetArticleEpic
+  getNewsPageEpic
 )(...args, { ajax });
 
 export default rootEpic;

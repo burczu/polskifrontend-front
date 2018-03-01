@@ -19,9 +19,9 @@ export default {
     } else if (state.dataLoaded === false) {
       // client side loading
       if (settings.tiles) {
-        context.store.dispatch(actions.homeBlogListGet(1));
+        context.store.dispatch(actions.homeBlogListGetRequest(1));
       } else {
-        context.store.dispatch(actions.homeArticleListGet(1));
+        context.store.dispatch(actions.homeArticleListGetRequest(1));
       }
     }
 

@@ -28,28 +28,28 @@ class Home extends React.Component {
   onListOptionClick(event) {
     event.preventDefault();
 
-    const { actions: { homeArticleListGet } } = this.props;
-    homeArticleListGet(1);
+    const { actions: { homeArticleListGetRequest } } = this.props;
+    homeArticleListGetRequest(1);
   }
 
   onTilesOptionClick(event) {
     event.preventDefault();
 
-    const { actions: { homeBlogListGet } } = this.props;
-    homeBlogListGet(1);
+    const { actions: { homeBlogListGetRequest } } = this.props;
+    homeBlogListGetRequest(1);
   }
 
   onAllListScrolledBottom() {
-    const { actions: { homeArticleListGet }, homeState: { allArticlesNextPage, allArticlesListLoading } } = this.props;
+    const { actions: { homeArticleListGetRequest }, homeState: { allArticlesNextPage, allArticlesListLoading } } = this.props;
     if (allArticlesListLoading === false && allArticlesNextPage > 1) {
-      homeArticleListGet(allArticlesNextPage);
+      homeArticleListGetRequest(allArticlesNextPage);
     }
   }
 
   onBlogListScrolledBottom() {
-    const { actions: { homeBlogListGet }, homeState: { blogListNextPage, blogListLoading } } = this.props;
+    const { actions: { homeBlogListGetRequest }, homeState: { blogListNextPage, blogListLoading } } = this.props;
     if (blogListLoading === false && blogListNextPage > 1) {
-      homeBlogListGet(blogListNextPage);
+      homeBlogListGetRequest(blogListNextPage);
     }
   }
 

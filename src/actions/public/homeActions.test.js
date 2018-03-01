@@ -7,25 +7,25 @@ describe('homeActions', () => {
   it('creates an action for getting blog list', () => {
     const page = 1;
     const expectedAction = {
-      type: constants.HOME_BLOG_LIST_GET,
+      type: constants.HOME_BLOG_LIST_GET_REQUEST,
       payload: {
         page
       }
     };
 
-    expect(actions.homeBlogListGet(page)).to.be.eql(expectedAction);
+    expect(actions.homeBlogListGetRequest(page)).to.be.eql(expectedAction);
   });
 
   it('creates an action for getting article list', () => {
     const page = 1;
     const expectedAction = {
-      type: constants.HOME_ARTICLE_LIST_GET,
+      type: constants.HOME_ARTICLE_LIST_GET_REQUEST,
       payload: {
         page
       }
     };
 
-    expect(actions.homeArticleListGet(page)).to.be.eql(expectedAction);
+    expect(actions.homeArticleListGetRequest(page)).to.be.eql(expectedAction);
   });
 
   it('creates an action for adding link to clicked list', () => {
