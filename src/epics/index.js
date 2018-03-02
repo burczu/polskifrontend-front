@@ -9,11 +9,9 @@ import { homeArticlesListGetRequestEpic } from './public/home/homeArticlesListGe
 import { homeBlogListGetEpic } from './public/home/homeBlogListGetEpic';
 import { homeBlogListGetRequestEpic } from './public/home/homeBlogListGetRequestEpic';
 import { homeLinkToClickedAddEpic } from './public/home/homeLinkToClickedAddEpic';
-import {
-  urlChangedEpic,
-  emailChangedEpic,
-  sendBlogRequestEpic
-} from './public/submit';
+import { submitUrlChangedEpic } from './public/submit/submitUrlChangedEpic';
+import { submitEmailChangedEpic } from './public/submit/submitEmailChangedEpic';
+import { submitBlogRequestSendEpic } from './public/submit/submitBlogRequestSendEpic';
 import { newsPageGetEpic } from './public/news/newsPageGetEpic';
 
 const rootEpic = (...args) => combineEpics(
@@ -27,9 +25,9 @@ const rootEpic = (...args) => combineEpics(
   homeBlogListGetRequestEpic,
   homeLinkToClickedAddEpic,
   newsPageGetEpic,
-  urlChangedEpic,
-  emailChangedEpic,
-  sendBlogRequestEpic
+  submitUrlChangedEpic,
+  submitEmailChangedEpic,
+  submitBlogRequestSendEpic
 )(...args, { ajax });
 
 export default rootEpic;
