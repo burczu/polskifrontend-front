@@ -10,11 +10,6 @@ import { homeBlogListGetEpic } from './public/home/homeBlogListGetEpic';
 import { homeBlogListGetRequestEpic } from './public/home/homeBlogListGetRequestEpic';
 import { homeLinkToClickedAddEpic } from './public/home/homeLinkToClickedAddEpic';
 import {
-  userChangeEpic,
-  passwordChangeEpic,
-  loginEpic
-} from './public/login';
-import {
   urlChangedEpic,
   emailChangedEpic,
   sendBlogRequestEpic
@@ -31,9 +26,6 @@ const rootEpic = (...args) => combineEpics(
   homeBlogListGetEpic,
   homeBlogListGetRequestEpic,
   homeLinkToClickedAddEpic,
-  userChangeEpic,
-  passwordChangeEpic,
-  loginEpic,
   urlChangedEpic,
   emailChangedEpic,
   sendBlogRequestEpic,

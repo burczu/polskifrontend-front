@@ -1,9 +1,7 @@
-import validators from '../../../core/helpers/validators';
+import { expect } from 'chai';
 import * as constants from '../../../constants';
 import { ActionsObservable } from 'redux-observable';
-import { expect } from 'chai';
 import { homeArticlesListGetRequestEpic } from './homeArticlesListGetRequestEpic';
-import actions from '../../../actions/actions';
 
 const getTriggeringAction = (page) => {
   const triggeringPayload = { page };
@@ -47,7 +45,7 @@ describe('homeArticlesListGetRequestEpic', () => {
         .toPromise()
         .then(outputAction => {
           expect(outputAction).to.be.eql(expectedAction);
-        })
+        });
     });
   });
 });
