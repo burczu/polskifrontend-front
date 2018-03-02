@@ -5,7 +5,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/mergeMap';
 
 export const homeLinkToClickedAddEpic = (action$, { getState }) => {
-  return action$.ofType(constants.HOME_ADD_LINK_TO_CLICKED)
+  return action$.ofType(constants.HOME_LINK_TO_CLICKED_ADD)
     .mergeMap((action) => {
       const { url } = action.payload;
       const state = getState().publicState.homeState;
@@ -14,7 +14,7 @@ export const homeLinkToClickedAddEpic = (action$, { getState }) => {
       links.push(url);
 
       return Observable.of({
-        type: constants.HOME_UPDATE_CLICKED_LIST,
+        type: constants.HOME_CLICKED_LIST_UPDATE,
         payload: { links }
       });
     });

@@ -9,12 +9,12 @@ describe('homeLinkToClickedAddEpic', () => {
   const mockedState = { getState: () => ({ publicState: { homeState: { clickedLinks: [] } } }) };
 
   const triggeringPayload = { url: '/test' };
-  const triggeringAction = { type: constants.HOME_ADD_LINK_TO_CLICKED, payload: triggeringPayload };
+  const triggeringAction = { type: constants.HOME_LINK_TO_CLICKED_ADD, payload: triggeringPayload };
 
   const action$ = ActionsObservable.of(triggeringAction);
 
   const expectedPayload = { links: ['/test'] };
-  const expectedAction = { type: constants.HOME_UPDATE_CLICKED_LIST, payload: expectedPayload };
+  const expectedAction = { type: constants.HOME_CLICKED_LIST_UPDATE, payload: expectedPayload };
 
   it('returns an action which updates clicked links list', () => {
     return homeLinkToClickedAddEpic(action$, mockedState)

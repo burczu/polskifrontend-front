@@ -42,7 +42,7 @@ export default function homeReducer(state = initialState, action) {
     case constants.HOME_ARTICLE_LIST_GET_ERROR:
       return { ...state, allArticlesListLoading: false, allArticlesListError: true };
 
-    case constants.HOME_UPDATE_CLICKED_LIST:
+    case constants.HOME_CLICKED_LIST_UPDATE:
       return { ...state, clickedLinks: action.payload.links };
     default:
       return { ...state };

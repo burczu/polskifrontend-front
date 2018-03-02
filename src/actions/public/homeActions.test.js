@@ -31,7 +31,7 @@ describe('homeActions', () => {
   it('creates an action for adding link to clicked list', () => {
     const url = '/test';
     const expectedAction = {
-      type: constants.HOME_ADD_LINK_TO_CLICKED,
+      type: constants.HOME_LINK_TO_CLICKED_ADD,
       payload: {
         url
       }
