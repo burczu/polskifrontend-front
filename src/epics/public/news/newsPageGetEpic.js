@@ -1,5 +1,6 @@
 import * as constants from '../../../constants';
 import { apiUrl, getDefaultHeaders } from '../../../config';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -27,7 +28,7 @@ export const newsPageGetEpic = (action$, { getState }, { ajax }) => {
           };
         })
         .takeUntil(action$.ofType(constants.GLOBALS_ROUTE_CHANGED))
-        .catch(error => ({
+        .catch(error => Observable.of({
           type: constants.NEWS_PAGE_GET_ERROR,
           payload: { message: error.message }
         }));
