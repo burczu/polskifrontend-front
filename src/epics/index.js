@@ -14,7 +14,7 @@ import {
   emailChangedEpic,
   sendBlogRequestEpic
 } from './public/submit';
-import { getNewsPageEpic } from './public/news';
+import { newsPageGetEpic } from './public/news/newsPageGetEpic';
 
 const rootEpic = (...args) => combineEpics(
   articlesGetArticleEpic,
@@ -26,10 +26,10 @@ const rootEpic = (...args) => combineEpics(
   homeBlogListGetEpic,
   homeBlogListGetRequestEpic,
   homeLinkToClickedAddEpic,
+  newsPageGetEpic,
   urlChangedEpic,
   emailChangedEpic,
-  sendBlogRequestEpic,
-  getNewsPageEpic
+  sendBlogRequestEpic
 )(...args, { ajax });
 
 export default rootEpic;
