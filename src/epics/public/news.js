@@ -13,16 +13,6 @@ export const getNewsPageEpic = (action$, { getState }) => {
       const { page } = action.payload;
       return ajax.post(`${apiUrl}/public/graphql`, getAllNewsesQuery(page), getDefaultHeaders())
         .map((responseData) => {
-          const { errors } = responseData.response;
-          if (errors && errors.length > 0) {
-            return {
-              type: constants.NEWS_PAGE_GET_ERROR,
-              payload: {
-                message: errors[0].message
-              }
-            };
-          }
-
           const { newses, nextPage } = responseData.response.data.newses;
 
           const state = getState().publicState.newsState;

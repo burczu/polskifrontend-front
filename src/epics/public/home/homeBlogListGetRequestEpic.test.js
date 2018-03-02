@@ -1,7 +1,9 @@
+/* eslint-disable */
 import { expect } from 'chai';
 import * as constants from '../../../constants';
 import { ActionsObservable } from 'redux-observable';
 import { homeBlogListGetRequestEpic } from './homeBlogListGetRequestEpic';
+import 'rxjs/add/operator/toPromise';
 
 const getTriggeringAction = (page) => {
   const triggeringPayload = { page };
