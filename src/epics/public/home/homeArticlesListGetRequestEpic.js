@@ -9,12 +9,9 @@ export const homeArticlesListGetRequestEpic = (action$, { getState }) => {
       const { page } = action.payload;
       const state = getState().publicState.homeState;
 
-      return Observable.of({ // eslint-disable-line no-undef
+      return Observable.of({
         type: constants.HOME_ARTICLE_LIST_GET,
-        payload: {
-          page,
-          articlesList: page === 1 ? [] : state.allArticlesList
-        }
+        payload: { page, articlesList: page === 1 ? [] : state.allArticlesList }
       });
     });
 };

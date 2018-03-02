@@ -10,7 +10,7 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/toPromise';
 
-describe('feedbackSendEpic', () => {
+describe('homeArticlesListGetEpic', () => {
   const mockState = {
     getState: () => ({
       publicState: {
