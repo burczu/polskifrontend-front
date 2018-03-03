@@ -23,7 +23,7 @@ export const articlesGetArticleEpic = (action$, store, { ajax }) => {
         .takeUntil(action$.ofType(constants.GLOBALS_ROUTE_CHANGED))
         .catch(error => Observable.of({
           type: constants.ARTICLES_ARTICLE_GET_ERROR,
-          payload: { message: error }
+          payload: { message: error.message }
         }));
     });
 };

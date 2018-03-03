@@ -2,8 +2,10 @@ import * as constants from '../../constants';
 
 export const initialState = {
   article: {},
+  articleLoaded: false,
   articleLoading: false,
   articleError: false,
+  articleErrorMessage: '',
 
   dataLoaded: false
 };
@@ -14,7 +16,7 @@ export default function articlesReducer(state = initialState, action) {
       return { ...state, dataLoaded: false };
 
     case constants.ARTICLES_ARTICLE_GET:
-      return { ...state, articleLoading: true, articleError: false };
+      return { ...state, articleLoaded: false, articleLoading: true, articleError: false };
     case constants.ARTICLES_ARTICLE_GET_SUCCESS:
       return {
         ...state,
@@ -24,7 +26,13 @@ export default function articlesReducer(state = initialState, action) {
         article: action.payload.article
       };
     case constants.ARTICLES_ARTICLE_GET_ERROR:
-      return { ...state, articleLoaded: false, articleLoading: false, articleError: true };
+      return {
+        ...state,
+        articleLoaded: false,
+        articleLoading: false,
+        articleError: true,
+        articleErrorMessage: action.payload.message
+      };
     default:
       return { ...state };
   }

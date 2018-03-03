@@ -33,10 +33,10 @@ describe('articlesGetArticleEpic', () => {
   });
 
   describe('if errors has thrown', () => {
-    const error = 'error';
+    const error = { message: 'error' };
     const ajax = () => Observable.throw(error);
 
-    const expectedAction = { type: constants.ARTICLES_ARTICLE_GET_ERROR, payload: { message: error } };
+    const expectedAction = { type: constants.ARTICLES_ARTICLE_GET_ERROR, payload: { message: error.message } };
 
     it('returns correct error action', () => {
       return articlesGetArticleEpic(action$, {}, { ajax })
