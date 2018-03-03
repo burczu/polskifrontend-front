@@ -33,6 +33,7 @@ module.exports = {
     '!src/core/fetch/**/*',
     '!src/actions/actions.js',
     '!src/epics/index.js',
+    '!src/store/logger/**',
     '!**/node_modules/**',
     '!**/vendor/**',
   ],

@@ -22,6 +22,9 @@ export const submitBlogRequestSendEpic = (action$, { getState }, { ajax }) => {
       return ajax(ajaxSettings)
         .map(() => ({ type: constants.SUBMIT_BLOG_REQUEST_SEND_SUCCESS }))
         .takeUntil(action$.ofType(constants.GLOBALS_ROUTE_CHANGED))
-        .catch(() => Observable.of({ type: constants.SUBMIT_BLOG_REQUEST_SEND_ERROR }));
+        .catch(error => Observable.of({
+          type: constants.SUBMIT_BLOG_REQUEST_SEND_ERROR,
+          payload: { message: error.message }
+        }));
     });
 };
