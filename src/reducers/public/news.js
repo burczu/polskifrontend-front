@@ -5,6 +5,7 @@ export const initialState = {
   newsListNextPage: 1,
   newsListLoading: false,
   newsListError: false,
+  newsListErrorMessage: '',
 
   dataLoaded: false
 };
@@ -15,17 +16,28 @@ export default function newsReducer(state = initialState, action) {
       return { ...state, dataLoaded: false };
 
     case constants.NEWS_PAGE_GET:
-      return { ...state, newsListLoading: true, newsListError: false };
+      return {
+        ...state,
+        newsListLoading: true,
+        newsListError: false,
+        newsListErrorMessage: ''
+      };
     case constants.NEWS_PAGE_GET_SUCCESS:
       return {
         ...state,
         newsListLoading: false,
         newsListError: false,
+        newsListErrorMessage: '',
         newsList: action.payload.newsList,
         newsListNextPage: action.payload.nextPage
       };
     case constants.NEWS_PAGE_GET_ERROR:
-      return { ...state, newsListLoading: false, newsListError: true };
+      return {
+        ...state,
+        newsListLoading: false,
+        newsListError: true,
+        newsListErrorMessage: action.payload.message
+      };
     default:
       return { ...state };
   }
