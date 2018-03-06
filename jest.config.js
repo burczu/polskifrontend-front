@@ -34,6 +34,7 @@ module.exports = {
     '!src/actions/actions.js',
     '!src/epics/index.js',
     '!src/store/logger/**',
+    '!src/reducers/**/index.js',
     '!**/node_modules/**',
     '!**/vendor/**',
   ],

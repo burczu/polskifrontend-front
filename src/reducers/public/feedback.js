@@ -37,9 +37,22 @@ export default function feedbackReducer(state = initialState, action) {
       return { ...state, captcha: action.payload.value, shouldCleanUp: false };
 
     case constants.FEEDBACK_SEND:
-      return { ...state, sending: true, sendError: false, shouldCleanUp: false };
+      return {
+        ...state,
+        sending: true,
+        sendError: false,
+        sendErrorMessage: '',
+        shouldCleanUp: false
+      };
     case constants.FEEDBACK_SEND_SUCCESS:
-      return { ...state, sending: false, sendError: false, sent: true, shouldCleanUp: false };
+      return {
+        ...state,
+        sending: false,
+        sendError: false,
+        sendErrorMessage: '',
+        sent: true,
+        shouldCleanUp: false
+      };
     case constants.FEEDBACK_SEND_ERROR:
       return {
         ...state,

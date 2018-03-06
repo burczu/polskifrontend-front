@@ -10,23 +10,22 @@ describe('articlesReducer', () => {
 
   it('resets data loaded value for ARTICLES_DATA_LOADED_RESET action', () => {
     const triggeringAction = { type: constants.ARTICLES_DATA_LOADED_RESET };
-    const currentState = { ...initialState, dataLoaded: true };
-    const expectedState = { ...initialState };
+    const currentState = { dataLoaded: true };
+    const expectedState = { dataLoaded: false };
 
     expect(articlesReducer(currentState, triggeringAction)).to.be.eql(expectedState);
   });
 
   it('returns correct state for ARTICLES_ARTICLE_GET action', () => {
     const triggeringAction = { type: constants.ARTICLES_ARTICLE_GET };
-    const currentState = { ...initialState };
     const expectedState = {
-      ...initialState,
       articleLoaded: false,
       articleLoading: true,
-      articleError: false
+      articleError: false,
+      articleErrorMessage: ''
     };
 
-    expect(articlesReducer(currentState, triggeringAction)).to.be.eql(expectedState);
+    expect(articlesReducer({}, triggeringAction)).to.be.eql(expectedState);
   });
 
   it('returns correct state for ARTICLES_ARTICLE_GET_SUCCESS action', () => {
@@ -35,16 +34,15 @@ describe('articlesReducer', () => {
       type: constants.ARTICLES_ARTICLE_GET_SUCCESS,
       payload: { article: mockArticle }
     };
-    const currentState = { ...initialState, articleLoading: true };
-    const expectedState ={
-      ...initialState,
+    const expectedState = {
       articleLoaded: true,
       articleLoading: false,
       articleError: false,
+      articleErrorMessage: '',
       article: mockArticle
     };
 
-    expect(articlesReducer(currentState, triggeringAction)).to.be.eql(expectedState);
+    expect(articlesReducer({}, triggeringAction)).to.be.eql(expectedState);
   });
 
   it('returns correct state for ARTICLES_ARTICLE_GET_ERROR action', () => {
@@ -53,15 +51,13 @@ describe('articlesReducer', () => {
       type: constants.ARTICLES_ARTICLE_GET_ERROR,
       payload: { message }
     };
-    const currentState = { ...initialState };
     const expectedState = {
-      ...initialState,
       articleLoaded: false,
       articleLoading: false,
       articleError: true,
       articleErrorMessage: message
     };
 
-    expect(articlesReducer(currentState, triggeringAction)).to.be.eql(expectedState);
+    expect(articlesReducer({}, triggeringAction)).to.be.eql(expectedState);
   });
 });

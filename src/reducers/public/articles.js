@@ -16,13 +16,20 @@ export default function articlesReducer(state = initialState, action) {
       return { ...state, dataLoaded: false };
 
     case constants.ARTICLES_ARTICLE_GET:
-      return { ...state, articleLoaded: false, articleLoading: true, articleError: false };
+      return {
+        ...state,
+        articleLoaded: false,
+        articleLoading: true,
+        articleError: false,
+        articleErrorMessage: ''
+      };
     case constants.ARTICLES_ARTICLE_GET_SUCCESS:
       return {
         ...state,
         articleLoaded: true,
         articleLoading: false,
         articleError: false,
+        articleErrorMessage: '',
         article: action.payload.article
       };
     case constants.ARTICLES_ARTICLE_GET_ERROR:
