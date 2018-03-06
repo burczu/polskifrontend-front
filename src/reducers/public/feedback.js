@@ -1,6 +1,6 @@
 import * as constants from '../../constants';
 
-const initialState = {
+export const initialState = {
   email: '',
   emailValid: false,
   emailDirty: false,
@@ -11,6 +11,7 @@ const initialState = {
   sending: false,
   sent: false,
   sendError: false,
+  sendErrorMessage: '',
   shouldCleanUp: false
 };
 
@@ -40,7 +41,14 @@ export default function feedbackReducer(state = initialState, action) {
     case constants.FEEDBACK_SEND_SUCCESS:
       return { ...state, sending: false, sendError: false, sent: true, shouldCleanUp: false };
     case constants.FEEDBACK_SEND_ERROR:
-      return { ...state, sending: false, sendError: true, sent: false, shouldCleanUp: false };
+      return {
+        ...state,
+        sent: false,
+        sending: false,
+        sendError: true,
+        sendErrorMessage: action.payload.message,
+        shouldCleanUp: false
+      };
 
     case constants.FEEDBACK_STATE_RESET:
       return { ...initialState, shouldCleanUp: true };
