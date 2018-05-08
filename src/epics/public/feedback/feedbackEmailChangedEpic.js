@@ -12,10 +12,7 @@ export const feedbackEmailChangedEpic = (action$) => {
 
       return Observable.of({ // eslint-disable-line no-undef
         type: constants.FEEDBACK_EMAIL_CHANGED_VALID,
-        payload: {
-          value,
-          isValid
-        }
+        payload: { value, isValid }
       });
     });
 };

@@ -16,12 +16,12 @@ class Articles extends React.Component {
     context: PropTypes.object.isRequired
   };
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     const { actions: { articlesDataLoadedReset } } = this.props;
     articlesDataLoadedReset();
-  }
+  };
 
-  render() {
+  render = () => {
     const { articlesState: { article, articleLoading }, context } = this.props;
     const title = `${article.title} | Polski Front-End`;
     const description = article.description ? decode(article.description.replace(/(<([^>]+)>)/ig, '')).substr(0, 140) + '...' : '';
