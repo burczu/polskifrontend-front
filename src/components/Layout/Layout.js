@@ -33,7 +33,7 @@ class Layout extends React.Component {
     return filteredList.length;
   };
 
-  render() {
+  render = () => {
     return (
       <div className={style.container}>
         <div className={style.pusher}>
@@ -46,7 +46,7 @@ class Layout extends React.Component {
         <CookieInfo />
       </div>
     );
-  }
+  };
 }
 
 export default connect(mapPublicStateToProps, mapPublicDispatchToProps)(withStyles(style)(Layout));

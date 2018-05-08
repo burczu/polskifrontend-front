@@ -38,7 +38,6 @@ const ContextType = {
  *   );
  */
 class App extends React.PureComponent {
-
   static propTypes = {
     children: PropTypes.element.isRequired,
     context: PropTypes.shape(ContextType).isRequired
@@ -46,27 +45,26 @@ class App extends React.PureComponent {
 
   static childContextTypes = ContextType;
 
-  getChildContext() {
+  getChildContext = () => {
     return this.props.context;
-  }
+  };
 
-  componentWillMount() {
+  componentWillMount = () => {
     const { insertCss } = this.props.context;
     this.removeCss = insertCss(fontAwesome);
-  }
+  };
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     if (this.removeCss) {
       setTimeout(this.removeCss, 0); // eslint-disable-line
     }
-  }
+  };
 
-  render() {
+  render = () => {
     // NOTE: If you need to add or modify header, footer etc. of the app,
     // please do that inside the Layout component.
     return Children.only(this.props.children);
-  }
-
+  };
 }
 
 export default App;

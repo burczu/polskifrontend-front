@@ -32,7 +32,7 @@ class Html extends React.Component {
     state: null
   };
 
-  render() {
+  render = () => {
     const { styles, scripts, state, children, helmet } = this.props;
     return (
       <html className="no-js" lang="pl" style={{ position: 'relative', minHeight: '100%' }}>
@@ -82,7 +82,7 @@ class Html extends React.Component {
         </body>
       </html>
     );
-  }
+  };
 }
 
 export default Html;

@@ -9,7 +9,7 @@ export class Page extends React.Component {
     title: PropTypes.string.isRequired
   };
 
-  render() {
+  render = () => {
     const { title, html } = this.props;
     return (
       <div className={style.root}>
@@ -22,7 +22,7 @@ export class Page extends React.Component {
         </div>
       </div>
     );
-  }
+  };
 }
 
 export default withStyles(style)(Page);
