@@ -21,10 +21,14 @@ class Articles extends React.Component {
     articlesDataLoadedReset();
   };
 
+  getDescriptionExcerpt = (description, length) => {
+    return `${decode(description.replace(/(<([^>]+)>)/ig, '')).trim().substr(0, length)}...`;
+  };
+
   render = () => {
     const { articlesState: { article, articleLoading }, context } = this.props;
     const title = `${article.title} | Polski Front-End`;
-    const description = article.description ? decode(article.description.replace(/(<([^>]+)>)/ig, '')).substr(0, 140) + '...' : '';
+    const description = article.description ? this.getDescriptionExcerpt(article.description, 140) : '';
 
     const blog = article._blog || {};
 
@@ -35,14 +39,14 @@ class Articles extends React.Component {
                      blogIcon={blog.favicon || ''}
                      blogHref={blog.href || ''}
                      date={article.date || ''}
-                     description={article.description ? decode(article.description.replace(/(<([^>]+)>)/ig, '')).trim().substr(0, 600) + '...' : ''}
+                     description={article.description ? this.getDescriptionExcerpt(article.description, 600) : ''}
                      href={article.href || ''}
                      isLoading={articleLoading}
                      title={article.title || ''}
         />
       </div>
     );
-  }
+  };
 }
 
 export default connect(mapPublicStateToProps, mapPublicDispatchToProps)(withStyles(styles)(Articles));
