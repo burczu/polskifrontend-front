@@ -23,7 +23,7 @@ export class CookieInfo extends React.Component {
     return (
       <div className={containerClass}>
         <p className={styles['container__text']}>Ta strona, tak jak praktycznie każda w internecie, wykorzystuje ciasteczka.</p>
-        <button className={styles['container__button']} onClick={this.onOkClick.bind(this)}>Rozumiem</button>
+        <button className={styles['container__button']} onClick={this.onOkClick}>Rozumiem</button>
       </div>
     );
   }

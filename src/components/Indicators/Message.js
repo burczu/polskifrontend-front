@@ -10,18 +10,15 @@ export class Message extends React.Component {
     type: PropTypes.oneOf(['alert', 'message', 'info']).isRequired
   };
 
-  constructor(props) {
-    super(props);
-    this.state = { isMessageVisible: this.props.isVisible };
-    this.currentTimout = null;
-  }
+  state = { isMessageVisible: this.props.isVisible };
+  currentTimeout = null;
 
   componentDidUpdate = (prevProps, prevState) => {
     const { isMessageVisible } = this.state;
     const { isVisible } = this.props;
 
-    if (this.currentTimout) {
-      clearTimeout(this.currentTimout); // eslint-disable-line
+    if (this.currentTimeout) {
+      clearTimeout(this.currentTimeout); // eslint-disable-line
     }
 
     if (prevProps.isVisible !== isVisible) {
@@ -31,7 +28,7 @@ export class Message extends React.Component {
     }
 
     if (prevState.isMessageVisible === false && isMessageVisible) {
-      this.currentTimout = setTimeout(() => { // eslint-disable-line
+      this.currentTimeout = setTimeout(() => { // eslint-disable-line
         this.setState({
           isMessageVisible: false
         });
