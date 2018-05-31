@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Articles component renders correctly 1`] = `
+<div
+  className="container"
+>
+  <div>
+    <div
+      className="container"
+    >
+      <div
+        className="container container"
+      >
+        <div
+          className="container"
+        >
+          <h2
+            className="container__title"
+          >
+            <div>
+              <span>
+                
+              </span>
+            </div>
+          </h2>
+          <div
+            className="wrapper"
+          >
+            <p
+              className="wrapper__description"
+            >
+              
+            </p>
+            <div
+              className="nav"
+            >
+              <a
+                className="back"
+                href="/"
+                onClick={[Function]}
+              >
+                <i
+                  className="icon-left-big"
+                />
+                Strona główna
+              </a>
+            </div>
+            <div
+              className="item"
+            >
+              <h2
+                className="item__header"
+              >
+                <a
+                  href="mock href"
+                  rel="nofollow"
+                  target="_blank"
+                  title="mock title"
+                >
+                  mock title
+                </a>
+              </h2>
+              <div
+                className="meta"
+              >
+                <p
+                  className="meta__date"
+                >
+                  31-05-2018
+                </p>
+                <pre
+                  className="meta__message"
+                >
+                  mock description...
+                </pre>
+              </div>
+              <div
+                className="more"
+              >
+                <h3
+                  className="more__header"
+                >
+                  Chcesz więcej? Przeczytaj w oryginale!
+                </h3>
+                <a
+                  className="more__link"
+                  href="mock href"
+                  rel="nofollow"
+                  target="_blank"
+                  title="mock title"
+                >
+                  <i
+                    className="icon-link-ext-alt"
+                  />
+                  Przejdź do artykułu
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

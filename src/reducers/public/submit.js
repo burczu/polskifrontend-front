@@ -1,6 +1,6 @@
 import * as constants from '../../constants';
 
-const initialState = {
+export const initialState = {
   url: '',
   urlValid: false,
   urlDirty: false,
