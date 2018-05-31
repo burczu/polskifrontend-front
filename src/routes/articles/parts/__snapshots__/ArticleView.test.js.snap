@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ArticleView component renders correctly 1`] = `
+<div>
+  <div
+    className="container"
+  >
+    <div
+      className="container container"
+    >
+      <div
+        className="container"
+      >
+        <h2
+          className="container__title"
+        >
+          <div>
+            <a
+              className="link"
+              href="/test"
+              rel="nofollow"
+              target="_blank"
+            >
+              <img
+                alt="test-name - ikona"
+                className="favicon"
+                src="no_image.png"
+              />
+            </a>
+            <span>
+              test-name
+            </span>
+          </div>
+        </h2>
+        <div
+          className="wrapper"
+        >
+          <p
+            className="wrapper__description"
+          >
+            
+          </p>
+          <div
+            className="nav"
+          >
+            <a
+              className="back"
+              href="/"
+              onClick={[Function]}
+            >
+              <i
+                className="icon-left-big"
+              />
+              Strona główna
+            </a>
+          </div>
+          <div
+            className="item"
+          >
+            <h2
+              className="item__header"
+            >
+              <a
+                href="/test"
+                rel="nofollow"
+                target="_blank"
+                title="Test title"
+              >
+                Test title
+              </a>
+            </h2>
+            <div
+              className="meta"
+            >
+              <p
+                className="meta__date"
+              >
+                01-01-2019
+              </p>
+              <pre
+                className="meta__message"
+              >
+                test-description
+              </pre>
+            </div>
+            <div
+              className="more"
+            >
+              <h3
+                className="more__header"
+              >
+                Chcesz więcej? Przeczytaj w oryginale!
+              </h3>
+              <a
+                className="more__link"
+                href="/test"
+                rel="nofollow"
+                target="_blank"
+                title="Test title"
+              >
+                <i
+                  className="icon-link-ext-alt"
+                />
+                Przejdź do artykułu
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
