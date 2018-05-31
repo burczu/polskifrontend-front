@@ -9,7 +9,7 @@ export const analytics = {
   }
 };
 
-export const getDefaultHeaders = () => {
+export const getDefaultHeaders = (withToken = false) => {
   const result = {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
