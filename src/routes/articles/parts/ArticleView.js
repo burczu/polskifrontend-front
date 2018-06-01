@@ -56,7 +56,7 @@ ArticleView.propTypes = {
   blogHref: PropTypes.string.isRequired,
   blogIcon: PropTypes.string.isRequired,
   blogName: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired,
+  date: PropTypes.object.isRequired,
   description: PropTypes.string.isRequired,
   href: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
