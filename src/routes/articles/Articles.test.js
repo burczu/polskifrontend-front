@@ -16,7 +16,8 @@ describe('Articles component', () => {
     title: 'mock title',
     description: 'mock description',
     blog: mockBlog,
-    href: 'mock href'
+    href: 'mock href',
+    date: new Date('2018-01-01')
   };
   const mockState = {
     article: mockArticle,
