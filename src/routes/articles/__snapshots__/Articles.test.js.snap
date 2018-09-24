@@ -66,7 +66,7 @@ exports[`Articles component renders correctly 1`] = `
                 <p
                   className="meta__date"
                 >
-                  31-05-2018
+                  01-01-2018
                 </p>
                 <pre
                   className="meta__message"
